@@ -1,0 +1,4491 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#171412">
+<title>Gala · Registre de preses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Night milk palette */
+    --bg: #171412;
+    --surface: #211d1a;
+    --surface-soft: #2b2521;
+    --surface-hover: #342c27;
+    --border: #3d342e;
+    --border-strong: #50443b;
+    --text: #f5eee7;
+    --text-soft: #cfc2b7;
+    --text-dim: #9d8f84;
+    --accent: #b7a089;
+    --accent-soft: #302820;
+    --accent-deep: #d0b696;
+    --bottle: #d98b6f;
+    --bottle-soft: #3a251f;
+    --sleep: #9d91c7;
+    --sleep-soft: #29243a;
+    --nap: #c9a15a;
+    --nap-soft: #342a1a;
+    --good: #8db58f;
+    --warn: #d09a68;
+    --danger: #d57878;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
+
+    /* Legacy aliases */
+    --bg-deep: var(--bg);
+    --bg-soft: var(--surface-soft);
+    --card: var(--surface);
+    --night-deep: var(--bg);
+    --night: var(--surface);
+    --night-soft: var(--surface-soft);
+    --night-card: var(--surface);
+    --indigo: var(--sleep-soft);
+    --moon: var(--sleep);
+    --moon-soft: var(--sleep-soft);
+    --sun: var(--nap);
+    --cream: var(--text);
+    --cream-soft: var(--text-soft);
+    --ink: var(--text);
+    --ink-soft: var(--text-soft);
+    --ink-dim: var(--text-dim);
+    --line: var(--border);
+    --line-strong: var(--border-strong);
+    --sage: var(--good);
+    --rose: var(--warn);
+    --teal: var(--good);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    min-height: 100vh;
+    padding: 12px 16px 60px;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  /* Header - compact */
+  header {
+    padding: 8px 4px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .header-main {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  header h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  header h1 span {
+    color: var(--bottle);
+  }
+  header p {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+  .lang-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 5px 9px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .lang-btn:hover { color: var(--text); }
+  .lang-btn.active { background: var(--accent); color: var(--bg); }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+  .card-subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    margin-top: -10px;
+    line-height: 1.4;
+  }
+
+  /* Entry form */
+  .entry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .entry-form .full { grid-column: 1 / -1; }
+  label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  input[type="date"], input[type="time"], input[type="number"], select {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
+    font-weight: 500;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  input::placeholder { color: var(--text-dim); }
+  button.primary {
+    width: 100%;
+    padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--bottle);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+    margin-top: 4px;
+  }
+  button.primary:hover { background: #e69d83; }
+  button.primary:active { transform: scale(0.98); }
+
+  /* Quick volume buttons */
+  .quick-vols { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .quick-vol {
+    padding: 6px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-vol:hover { border-color: var(--bottle); color: var(--bottle); background: var(--bottle-soft); }
+  .quick-vol.active { border-color: var(--bottle); color: var(--bottle); background: var(--bottle-soft); }
+
+  /* Cereal counter */
+  .cereal-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .cereal-counter-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cereal-counter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cereal-counter-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .cereal-counter-value {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    padding: 6px 12px;
+    background: var(--surface-soft);
+    border-radius: 8px;
+  }
+  .cereal-counter-value.zero { color: var(--text-dim); font-weight: 400; }
+
+  /* Hero: night forecast */
+  .hero {
+    background: var(--sleep-soft);
+    border: 1px solid var(--sleep-soft);
+    border-radius: 14px;
+    padding: 18px 18px;
+    margin-bottom: 14px;
+  }
+  .hero::before {
+    display: none;
+  }
+  .hero-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--sleep);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-main {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(32px, 8vw, 44px);
+    line-height: 1.1;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .hero-main .accent { color: var(--sleep); font-weight: 600; }
+  .hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-soft);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
+  .hero-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .hero-mini {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .hero-mini-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* Goal section (big) */
+  .goal-big {
+    background: var(--bottle-soft);
+    border-radius: 12px;
+    padding: 18px 16px;
+    border: 1px solid var(--bottle);
+  }
+  .goal-big::before {
+    display: none;
+  }
+  .goal-big-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .goal-current { text-align: right; }
+  .goal-current-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 9vw, 48px);
+    color: var(--bottle);
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+  .goal-current-unit {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .goal-divider {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: clamp(28px, 7vw, 38px);
+    color: var(--text-dim);
+    line-height: 1;
+  }
+  .goal-target { text-align: left; }
+  .goal-target-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(36px, 9vw, 48px);
+    color: var(--text-soft);
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+  .goal-target-unit {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .goal-bar-wrap {
+    position: relative;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: visible;
+    margin-bottom: 8px;
+  }
+  .goal-bar {
+    height: 100%;
+    background: var(--bottle);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+  }
+  .goal-bar-marker {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--text);
+    opacity: 0.4;
+    border-radius: 1px;
+    transition: left 0.4s ease;
+    pointer-events: none;
+  }
+  .goal-bar-marker::after {
+    content: 'ara';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .goal-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-soft);
+    margin-top: 14px;
+    font-weight: 500;
+  }
+  .goal-bar-labels span:first-child { color: var(--bottle); font-weight: 600; }
+
+  .goal-narrative {
+    background: var(--surface-soft);
+    border-left: 3px solid var(--bottle);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .goal-narrative strong { color: var(--bottle); font-weight: 600; }
+  .goal-narrative .neutral { color: var(--sleep); font-weight: 600; }
+  .goal-narrative .below { color: var(--warn); font-weight: 600; }
+
+  /* Progress ring (kept for compat, unused now) */
+  .progress-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 12px;
+  }
+  .progress-ring { position: relative; flex-shrink: 0; }
+  .progress-ring svg { transform: rotate(-90deg); }
+  .progress-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .progress-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--cream);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .progress-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+  }
+  .progress-info { flex: 1; }
+  .progress-info-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--cream);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .progress-info-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat {
+    background: var(--surface-soft);
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .stat-value .unit {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .stat-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  /* Hour-band table */
+  .band-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .band-row:last-child { border-bottom: none; }
+  .band-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text-soft);
+    min-width: 88px;
+    font-weight: 500;
+  }
+  .band-time .icon { color: var(--sleep); margin-right: 4px; }
+  .band-bar-wrap {
+    position: relative;
+    height: 20px;
+    background: var(--surface-soft);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .band-bar {
+    height: 100%;
+    background: var(--bottle);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .band-bar.empty {
+    background: var(--surface-soft);
+  }
+  .band-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+    min-width: 70px;
+    text-align: right;
+  }
+  .band-val .small {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Today's feed list */
+  .feed-list { list-style: none; }
+  .feed-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feed-item:last-child { border-bottom: none; }
+  .feed-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-soft);
+    background: var(--surface-soft);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feed-info { display: flex; flex-direction: column; gap: 2px; }
+  .feed-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .feed-time .icon { margin-right: 4px; color: var(--sleep); font-size: 12px; }
+  .feed-time .icon.sun { color: var(--nap); }
+  .feed-cereals {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 6px;
+    background: var(--nap-soft);
+    color: var(--nap);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 6px;
+    vertical-align: middle;
+    border: 1px solid var(--nap);
+  }
+  .feed-cum {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .feed-qty {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .feed-qty .unit { font-size: 11px; color: var(--text-dim); margin-left: 2px; font-weight: 500; }
+  .feed-del {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 18px;
+    border-radius: 6px;
+    line-height: 1;
+  }
+  .feed-del:hover { color: var(--danger); }
+
+  /* Interval between feeds */
+  .feed-interval {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0 3px 34px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .feed-interval::before {
+    content: '';
+    flex-shrink: 0;
+    width: 1px;
+    height: 14px;
+    background: var(--border-strong);
+    margin-left: -22px;
+    margin-right: 12px;
+  }
+  .feed-interval.long { color: var(--good); }
+  .feed-interval.short { color: var(--warn); }
+
+  /* Bedtime marker on goal bar */
+  .goal-bar-bedtime {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--sleep);
+    border-radius: 1px;
+    transition: left 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .bedtime-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--sleep);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .bedtime-label strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .goal-bar-wrap { margin-top: 8px; margin-bottom: 32px; }
+
+  /* Daily totals */
+  .day-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .day-row:last-child { border-bottom: none; }
+  .day-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-soft);
+    min-width: 56px;
+    font-weight: 500;
+  }
+  .day-bar-wrap {
+    position: relative;
+    height: 22px;
+    background: var(--surface-soft);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .day-bar {
+    height: 100%;
+    background: var(--bottle);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .day-bar.partial { background: repeating-linear-gradient(45deg, var(--bottle-soft) 0 6px, var(--bottle) 6px 12px); opacity: 0.6; }
+  .day-total {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .day-total .small { font-size: 11px; color: var(--text-dim); font-family: 'Inter', sans-serif; margin-left: 4px; font-weight: 400; }
+
+  /* Day navigator */
+  .day-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px 8px;
+    margin-bottom: 14px;
+    gap: 10px;
+  }
+  .day-nav-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .day-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .day-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  .day-nav-btn:disabled:hover { border-color: var(--border-strong); color: var(--text-soft); }
+  .day-nav-label {
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    border-radius: 6px;
+    padding: 4px 6px;
+    transition: background 0.15s;
+  }
+  .day-nav-label:hover { background: var(--surface-soft); }
+  .day-nav-label .day-cal-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: transparent;
+  }
+  /* Calendar icon button */
+  .day-nav-cal {
+    position: relative;
+    overflow: hidden;
+  }
+  .day-nav-cal svg {
+    pointer-events: none;
+  }
+  .day-cal-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: transparent;
+  }
+  /* Hide the iOS/Android default calendar indicator since we provide our own icon */
+  .day-cal-input::-webkit-calendar-picker-indicator {
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+  .day-nav-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .day-nav-title.past {
+    color: var(--sleep);
+  }
+  .day-nav-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* Tabs - sticky at top */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 14px;
+    background: var(--surface);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 8px;
+    z-index: 10;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab {
+    flex: 1;
+    padding: 9px 6px;
+    background: transparent;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Insights */
+  .insight {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .insight:last-child { border-bottom: none; }
+  .insight-icon {
+    font-size: 11px;
+    width: 22px;
+    flex-shrink: 0;
+    text-align: center;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .insight-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .insight-text strong { color: var(--accent); font-weight: 600; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .footer-btn {
+    padding: 8px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    color: var(--text-soft);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .footer-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .footer-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 14px;
+  }
+
+  /* Sleep section */
+  .active-sleep {
+    background: var(--sleep-soft);
+    border: 1px solid var(--sleep);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .active-sleep-icon {
+    font-size: 30px;
+    color: var(--sleep);
+    flex-shrink: 0;
+  }
+  .active-sleep-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .active-sleep-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sleep);
+    margin-bottom: 2px;
+  }
+  .active-sleep-since {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+  .active-sleep-duration {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    color: var(--text);
+    font-weight: 700;
+    margin-top: 4px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .active-sleep-wake {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    background: var(--sleep);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .active-sleep-wake:hover { background: #afa3d5; }
+
+  .sleep-quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .sleep-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .sleep-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .sleep-btn-icon {
+    font-size: 24px;
+  }
+  .sleep-btn-nap .sleep-btn-icon { color: var(--nap); }
+  .sleep-btn-night .sleep-btn-icon { color: var(--sleep); }
+  .sleep-btn-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .manual-entry-toggle {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: transparent;
+    border: 1px dashed var(--border-strong);
+    border-radius: 8px;
+    color: var(--text-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .manual-entry-toggle:hover { border-color: var(--accent); color: var(--accent); border-style: solid; }
+  .manual-entry-toggle.standalone { margin-top: 0; margin-bottom: 14px; }
+
+  select#sleepType {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23cfc2b7' viewBox='0 0 16 16'%3e%3cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    font-weight: 500;
+  }
+
+  /* Sleep list */
+  .sleep-list { list-style: none; }
+  .sleep-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sleep-item:last-child { border-bottom: none; }
+  .sleep-item-icon {
+    font-size: 16px;
+    width: 24px;
+    text-align: center;
+  }
+  .sleep-item-icon.nap { color: var(--nap); }
+  .sleep-item-icon.night { color: var(--sleep); }
+  .sleep-item-info { display: flex; flex-direction: column; gap: 2px; }
+  .sleep-item-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .sleep-item-type {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .sleep-item-duration {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .sleep-item-duration .unit {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-left: 2px;
+  }
+  .sleep-item-del {
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 18px;
+    border-radius: 6px;
+  }
+  .sleep-item-del:hover { color: var(--danger); }
+
+  /* Sleep history bar (stacked night + nap) */
+  .sleep-history-bar {
+    position: relative;
+    height: 22px;
+    background: var(--surface-soft);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+  .sleep-history-bar .night-part {
+    background: var(--sleep);
+    height: 100%;
+  }
+  .sleep-history-bar .nap-part {
+    background: var(--nap);
+    height: 100%;
+  }
+
+  /* Clickable stat cards + metric chart */
+  .stat-clickable {
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stat-clickable:hover { border-color: var(--border-strong); }
+  .stat-clickable::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid var(--text-dim);
+    border-bottom: 1.5px solid var(--text-dim);
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+    opacity: 0.5;
+  }
+  .stat-clickable.chart-open {
+    grid-column: 1 / -1;
+    border-color: var(--accent);
+    background: var(--surface);
+  }
+  .stat-clickable.chart-open::after {
+    transform: rotate(-135deg);
+    opacity: 1;
+  }
+  .metric-chart {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    animation: chartFade 0.25s ease;
+  }
+  @keyframes chartFade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .chart-period-selector {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .chart-period-btn {
+    flex: 1;
+    padding: 6px 4px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chart-period-btn:hover { color: var(--text); }
+  .chart-period-btn.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+  .metric-chart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .chart-daily-line {
+    fill: none;
+    stroke: var(--bottle);
+    stroke-width: 1;
+    opacity: 0.35;
+  }
+  .chart-trend-line {
+    fill: none;
+    stroke: var(--accent-deep);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .chart-avg-line {
+    stroke: var(--text-dim);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    opacity: 0.4;
+  }
+  .chart-dot {
+    fill: var(--bottle);
+    opacity: 0.7;
+  }
+  .chart-axis-dates {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-soft);
+  }
+  .chart-legend-item { display: flex; align-items: center; gap: 5px; }
+  .chart-legend-dot { width: 10px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+  .chart-legend-dot.daily { background: var(--bottle); opacity: 0.5; }
+  .chart-legend-dot.trend { background: var(--accent-deep); height: 3px; }
+  .chart-legend-dot.avg { background: var(--text-dim); opacity: 0.6; }
+  .chart-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .chart-stat {
+    background: var(--surface-soft);
+    border-radius: 8px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .chart-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+  }
+  .chart-stat-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .chart-stat-val.up { color: var(--good); }
+  .chart-stat-val.down { color: var(--warn); }
+  .chart-stat-val.neutral { color: var(--text-dim); }
+  .chart-empty {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 16px 0;
+    text-align: center;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--accent);
+    color: var(--bg);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.25s ease;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* Forecast confidence indicator */
+  .confidence {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .confidence-dots { display: flex; gap: 3px; }
+  .confidence-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-dim); opacity: 0.3; }
+  .confidence-dot.on { background: var(--accent); opacity: 1; }
+
+  @media (max-width: 480px) {
+    .feed-item { grid-template-columns: auto 1fr auto auto; }
+  }
+
+  /* Period selector */
+  .period-selector {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+  }
+  .period-btn {
+    flex: 1;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .period-btn:hover { color: var(--text); }
+  .period-btn.active {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  /* Evolution chart */
+  .evo-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .evo-row:last-child { border-bottom: none; }
+  .evo-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-soft);
+    min-width: 70px;
+    font-weight: 500;
+  }
+  .evo-bars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 28px;
+  }
+  .evo-bar {
+    flex: 0 0 8px;
+    height: 100%;
+    background: var(--bottle);
+    border-radius: 2px;
+    opacity: 0.55;
+    transition: opacity 0.15s, height 0.3s;
+    cursor: pointer;
+    align-self: end;
+  }
+  .evo-bar.current { opacity: 1; }
+  .evo-bar.sleep { background: var(--sleep); }
+  .evo-bar.wakeups { background: var(--nap); }
+  .evo-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+    min-width: 70px;
+    text-align: right;
+  }
+  .evo-val .delta {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .evo-val .delta.up { color: var(--good); }
+  .evo-val .delta.down { color: var(--warn); }
+  .evo-val .delta.neutral { color: var(--text-dim); }
+  .evo-section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .evo-section-label:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="header-main">
+    <h1>Gala<span>.</span></h1>
+    <p data-i18n="subtitle">Biberons i son</p>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="ca">CA</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</header>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active" data-tab="today" data-i18n="tabFeeds">Biberons</button>
+  <button class="tab" data-tab="sleep" data-i18n="tabSleep">Son</button>
+  <button class="tab" data-tab="patterns" data-i18n="tabPatterns">Patrons</button>
+  <button class="tab" data-tab="history" data-i18n="tabHistory">Històric</button>
+</div>
+
+<!-- Biberons -->
+<div class="tab-content active" id="tab-today">
+
+  <!-- Day navigator -->
+  <div class="day-nav">
+    <button class="day-nav-btn" id="dayPrev" aria-label="Dia anterior">‹</button>
+    <div class="day-nav-label" id="dayNavLabel">
+      <div class="day-nav-title" id="dayNavTitle">Avui</div>
+      <div class="day-nav-sub" id="dayNavSub">—</div>
+      <input type="date" id="dayNavLabelCal" class="day-cal-input" aria-label="Selecciona dia">
+    </div>
+    <button class="day-nav-btn day-nav-cal" id="dayCal" aria-label="Calendari" title="Tria un dia">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <input type="date" id="dayCalInput" class="day-cal-input" aria-label="Selecciona dia">
+    </button>
+    <button class="day-nav-btn" id="dayNext" aria-label="Dia següent">›</button>
+  </div>
+
+  <!-- Entry form (only when viewing today) -->
+  <div class="card" id="entryCard">
+    <div class="card-title" data-i18n="newBottle">Nou biberó</div>
+    <form class="entry-form" id="entryForm">
+      <div>
+        <label for="date" data-i18n="date">Data</label>
+        <input type="date" id="date" required>
+      </div>
+      <div>
+        <label for="time" data-i18n="time">Hora</label>
+        <input type="time" id="time" required>
+      </div>
+      <div class="full">
+        <label for="qty" data-i18n="quantity">Quantitat (ml)</label>
+        <input type="number" id="qty" min="1" max="500" required placeholder="ex. 120" inputmode="numeric">
+        <div class="quick-vols">
+          <button type="button" class="quick-vol" data-v="60">60</button>
+          <button type="button" class="quick-vol" data-v="90">90</button>
+          <button type="button" class="quick-vol" data-v="100">100</button>
+          <button type="button" class="quick-vol" data-v="120">120</button>
+          <button type="button" class="quick-vol" data-v="150">150</button>
+          <button type="button" class="quick-vol" data-v="170">170</button>
+        </div>
+      </div>
+      <div class="full">
+        <label for="cereals" data-i18n="cereals">Cereals (cullerades)</label>
+        <div class="cereal-counter">
+          <button type="button" class="cereal-counter-btn" id="cerealMinus" aria-label="Menys">−</button>
+          <div class="cereal-counter-value zero" id="cerealValue">0</div>
+          <button type="button" class="cereal-counter-btn" id="cerealPlus" aria-label="Més">+</button>
+        </div>
+        <input type="hidden" id="cereals" value="0">
+      </div>
+      <div class="full">
+        <button type="submit" class="primary" data-i18n="addBottle">Afegir biberó</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- HERO: Night forecast -->
+  <div class="hero">
+    <div class="hero-label" id="heroLabel">☾ Pronòstic de la nit</div>
+    <div class="hero-main" id="forecastMain">—</div>
+    <div class="hero-sub" id="forecastSub" data-i18n="notEnoughForecast">Encara no hi ha prou dades per pronosticar.</div>
+    <div class="hero-row">
+      <div>
+        <div class="hero-mini">Confiança</div>
+        <div class="confidence" style="margin-top: 6px;">
+          <div class="confidence-dots" id="confDots">
+            <span class="confidence-dot"></span>
+            <span class="confidence-dot"></span>
+            <span class="confidence-dot"></span>
+            <span class="confidence-dot"></span>
+            <span class="confidence-dot"></span>
+          </div>
+          <span id="confLabel">—</span>
+        </div>
+      </div>
+      <div style="text-align: right;" id="heroRightBlock">
+        <div class="hero-mini" data-i18n="targetUntilMidnight">Objectiu fins a 00:00</div>
+        <div class="hero-mini-val" id="targetGoal">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress to goal -->
+  <div class="card">
+    <div class="card-title" data-i18n="goalDailyLabel">Objectiu diari · 24h</div>
+
+    <!-- Big number block -->
+    <div class="goal-big">
+      <div class="goal-big-row">
+        <div class="goal-current">
+          <div class="goal-current-num" id="goalCurrent">0</div>
+          <div class="goal-current-unit" id="goalCurrentUnit">ml avui</div>
+        </div>
+        <div class="goal-divider">/</div>
+        <div class="goal-target">
+          <div class="goal-target-num" id="goalTarget">—</div>
+          <div class="goal-target-unit" data-i18n="mlTarget">ml objectiu</div>
+        </div>
+      </div>
+
+      <!-- Linear progress bar -->
+      <div class="goal-bar-wrap">
+        <div class="goal-bar" id="goalBar" style="width: 0%"></div>
+        <div class="goal-bar-marker" id="goalBarMarker"></div>
+        <div class="goal-bar-bedtime" id="goalBarBedtime" style="left: 0%"></div>
+      </div>
+      <div class="goal-bar-labels">
+        <span><span id="goalPct">0%</span> · <span id="goalPctLabel">complet</span></span>
+        <span id="goalRemaining">— ml restants</span>
+      </div>
+    </div>
+
+    <!-- Detail stats -->
+    <div class="stats-grid" style="margin-top: 20px;">
+      <div class="stat" data-metric="total">
+        <div class="stat-label" data-i18n="avgDailyLabel">Mitjana diària</div>
+        <div class="stat-value" id="avgDailyStat">—<span class="unit">ml</span></div>
+        <div class="stat-sub" id="avgDailyStatSub" data-i18n="basedComplete">basat en dies complets</div>
+      </div>
+      <div class="stat" data-metric="count">
+        <div class="stat-label" data-i18n="feedsDone">Preses fetes</div>
+        <div class="stat-value" id="todayCount2">0</div>
+        <div class="stat-sub" id="todayCountSub">de ~— habituals</div>
+      </div>
+      <div class="stat" data-metric="avgFeed">
+        <div class="stat-label" data-i18n="avgFeedTodayLabel">Mitjana / presa avui</div>
+        <div class="stat-value" id="avgFeedToday">—<span class="unit">ml</span></div>
+        <div class="stat-sub" id="avgFeedTodaySub">vs ~— habitual</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label" data-i18n="paceLabel">Ritme respecte a l'hora</div>
+        <div class="stat-value" id="pace">—</div>
+        <div class="stat-sub" id="paceSub" data-i18n="vsExpected">vs progrés esperat</div>
+      </div>
+      <div class="stat" data-metric="interval">
+        <div class="stat-label" data-i18n="intervalTodayLabel">Interval entre preses avui</div>
+        <div class="stat-value" id="intervalToday">—</div>
+        <div class="stat-sub" id="intervalTodaySub">vs ~— habitual</div>
+      </div>
+      <div class="stat" data-metric="preBed">
+        <div class="stat-label" data-i18n="bedtimeVolLabel">Volum a anar a dormir</div>
+        <div class="stat-value" id="bedtimeStat">—<span class="unit">ml</span></div>
+        <div class="stat-sub" id="bedtimeStatSub" data-i18n="histAvg">mitjana històrica</div>
+      </div>
+    </div>
+
+    <!-- Narrative summary -->
+    <div class="goal-narrative" id="goalNarrative">—</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" id="feedListTitle">Biberons d'avui</div>
+    <ul class="feed-list" id="todayList">
+      <li style="text-align: center; color: var(--ink-dim); padding: 24px; font-style: italic; font-family: 'Fraunces', serif;">Encara no hi ha preses avui</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Son -->
+<div class="tab-content" id="tab-sleep">
+
+  <!-- Day navigator -->
+  <div class="day-nav">
+    <button class="day-nav-btn" id="sleepDayPrev" aria-label="Dia anterior">‹</button>
+    <div class="day-nav-label" id="sleepDayNavLabel">
+      <div class="day-nav-title" id="sleepDayNavTitle">Avui</div>
+      <div class="day-nav-sub" id="sleepDayNavSub">—</div>
+      <input type="date" id="sleepDayNavLabelCal" class="day-cal-input" aria-label="Selecciona dia">
+    </div>
+    <button class="day-nav-btn day-nav-cal" id="sleepDayCal" aria-label="Calendari" title="Tria un dia">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <input type="date" id="sleepDayCalInput" class="day-cal-input" aria-label="Selecciona dia">
+    </button>
+    <button class="day-nav-btn" id="sleepDayNext" aria-label="Dia següent">›</button>
+  </div>
+
+  <!-- Active sleep banner (shown when there's an ongoing sleep) -->
+  <div class="active-sleep" id="activeSleep" style="display: none;">
+    <div class="active-sleep-icon">☾</div>
+    <div class="active-sleep-info">
+      <div class="active-sleep-label" id="activeSleepLabel">Dormint</div>
+      <div class="active-sleep-since" id="activeSleepSince">Des de —</div>
+      <div class="active-sleep-duration" id="activeSleepDuration">—</div>
+    </div>
+    <button class="active-sleep-wake" id="activeSleepWake" data-i18n="wokeUp">S'ha despertat</button>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="card" id="sleepQuickCard">
+    <div class="card-title" data-i18n="recordSleep">Registrar son</div>
+    <div class="sleep-quick">
+      <button class="sleep-btn sleep-btn-nap" id="startNapBtn">
+        <span class="sleep-btn-icon">☀</span>
+        <span class="sleep-btn-text" data-i18n="startNap">Comença siesta</span>
+      </button>
+      <button class="sleep-btn sleep-btn-night" id="startNightBtn">
+        <span class="sleep-btn-icon">☾</span>
+        <span class="sleep-btn-text" data-i18n="startNight">Comença nit</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Manual entry toggle (always available, even during an active sleep) -->
+  <button class="manual-entry-toggle standalone" id="manualEntryToggle" data-i18n="addManually">+ Afegir manualment</button>
+
+  <!-- Manual entry form (hidden by default) -->
+  <div class="card" id="manualEntryCard" style="display: none;">
+    <div class="card-title" data-i18n="manualEntry">Entrada manual</div>
+    <form class="entry-form" id="sleepForm">
+      <div>
+        <label for="sleepType" data-i18n="type">Tipus</label>
+        <select id="sleepType">
+          <option value="nap" data-i18n="nap">Siesta</option>
+          <option value="night" data-i18n="night">Nit</option>
+        </select>
+      </div>
+      <div>
+        <label for="sleepDate" data-i18n="startDate">Data inici</label>
+        <input type="date" id="sleepDate" required>
+      </div>
+      <div>
+        <label for="sleepStart" data-i18n="startTime">Hora inici</label>
+        <input type="time" id="sleepStart" required>
+      </div>
+      <div>
+        <label for="sleepEnd" data-i18n="endTime">Hora fi</label>
+        <input type="time" id="sleepEnd" required>
+      </div>
+      <div class="full">
+        <button type="submit" class="primary" data-i18n="addSleep">Afegir son</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Today's sleep summary -->
+  <div class="card">
+    <div class="card-title" id="sleepTodayTitle">Avui</div>
+    <div class="stats-grid">
+      <div class="stat" data-metric="sleepTotal">
+        <div class="stat-label" data-i18n="sleepTotal">Son total</div>
+        <div class="stat-value" id="sleepTotalToday">—</div>
+        <div class="stat-sub" id="sleepTotalSub">—</div>
+      </div>
+      <div class="stat" data-metric="wakeups">
+        <div class="stat-label" data-i18n="wakeupsNight">Despertars nit</div>
+        <div class="stat-value" id="wakeupsToday">—</div>
+        <div class="stat-sub" id="wakeupsTodaySub" data-i18n="duringNight">durant la nit</div>
+      </div>
+      <div class="stat" data-metric="napTotal">
+        <div class="stat-label" data-i18n="naps">Sietas</div>
+        <div class="stat-value" id="sleepNapsToday">—</div>
+        <div class="stat-sub" id="sleepNapsSub" data-i18n="today">avui</div>
+      </div>
+      <div class="stat" data-metric="nightSleep">
+        <div class="stat-label" data-i18n="nightSleep">Son nocturn</div>
+        <div class="stat-value" id="sleepNightToday">—</div>
+        <div class="stat-sub" id="sleepNightSub" data-i18n="lastNight">última nit</div>
+      </div>
+      <div class="stat" data-metric="nightFeeds">
+        <div class="stat-label" data-i18n="nightFeeds">Preses nocturnes</div>
+        <div class="stat-value" id="nightFeedsToday">—</div>
+        <div class="stat-sub" id="nightFeedsTodaySub" data-i18n="before8">abans de les 8h</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label" data-i18n="avg7">Mitjana 7 dies</div>
+        <div class="stat-value" id="sleepAvg7">—</div>
+        <div class="stat-sub" data-i18n="sleepTotalPerDay">son total/dia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label" data-i18n="avgWakeups">Despertars mitjans</div>
+        <div class="stat-value" id="wakeupsAvg7">—</div>
+        <div class="stat-sub" data-i18n="perNight7">per nit (7 dies)</div>
+      </div>
+    </div>
+
+    <!-- Sleep list -->
+    <ul class="sleep-list" id="sleepList" style="margin-top: 16px;"></ul>
+  </div>
+</div>
+
+<!-- Patrons -->
+<div class="tab-content" id="tab-patterns">
+
+  <!-- Period selector -->
+  <div class="period-selector">
+    <button class="period-btn active" data-period="7" data-i18n="week">Setmana</button>
+    <button class="period-btn" data-period="14" data-i18n="fortnight">Quinzena</button>
+    <button class="period-btn" data-period="30" data-i18n="month">Mes</button>
+  </div>
+
+  <!-- Evolution chart (sparkline) -->
+  <div class="card">
+    <div class="card-title" id="evolutionTitle">Evolució setmanal</div>
+    <p class="card-subtitle" id="evolutionSubtitle">Cada barra és una setmana. Veuràs la tendència del volum total i del son.</p>
+    <div id="evolutionChart"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" data-i18n="whatToExpect">Què esperar segons l'hora</div>
+    <p class="card-subtitle" data-i18n="avgVolumeBand">Volum mitjà per franja horària.</p>
+    <div id="hourBands"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" data-i18n="avgDailyPattern">Patró diari mitjà</div>
+    <div class="stats-grid">
+      <div class="stat" data-metric="total">
+        <div class="stat-label" data-i18n="avgPerDay">Mitjana / dia</div>
+        <div class="stat-value" id="avgDay">—<span class="unit">ml</span></div>
+        <div class="stat-sub" id="avgDaySub">—</div>
+      </div>
+      <div class="stat" data-metric="avgFeed">
+        <div class="stat-label" data-i18n="avgPerFeed">Mitjana / presa</div>
+        <div class="stat-value" id="avgFeed">—<span class="unit">ml</span></div>
+        <div class="stat-sub" data-i18n="notForced">no forçada</div>
+      </div>
+      <div class="stat" data-metric="count">
+        <div class="stat-label" data-i18n="feedsPerDay">Preses / dia</div>
+        <div class="stat-value" id="avgCount">—</div>
+        <div class="stat-sub" data-i18n="ofAvg">de mitjana</div>
+      </div>
+      <div class="stat" data-metric="nightVol">
+        <div class="stat-label" data-i18n="avgNightVolume">Volum nocturn mitjà</div>
+        <div class="stat-value" id="avgNight">—<span class="unit">ml</span></div>
+        <div class="stat-sub">22h–06h</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" data-i18n="sleepPatterns">Patrons del son</div>
+    <div class="stats-grid">
+      <div class="stat" data-metric="sleepTotal">
+        <div class="stat-label" data-i18n="sleepTotalDay">Son total / dia</div>
+        <div class="stat-value" id="sleepPatternTotal">—</div>
+        <div class="stat-sub" id="sleepPatternTotalSub">—</div>
+      </div>
+      <div class="stat" data-metric="nightSleep">
+        <div class="stat-label" data-i18n="avgNightSleep2">Son nocturn mig</div>
+        <div class="stat-value" id="sleepPatternNight">—</div>
+        <div class="stat-sub" id="sleepPatternNightSub">per nit</div>
+      </div>
+      <div class="stat" data-metric="napCount">
+        <div class="stat-label" data-i18n="napsPerDay">Sietas / dia</div>
+        <div class="stat-value" id="sleepPatternNapsCount">—</div>
+        <div class="stat-sub" id="sleepPatternNapsSub" data-i18n="ofAvg">de mitjana</div>
+      </div>
+      <div class="stat" data-metric="napTotal">
+        <div class="stat-label" data-i18n="napDuration">Durada siesta</div>
+        <div class="stat-value" id="sleepPatternNapDuration">—</div>
+        <div class="stat-sub" data-i18n="perNap">per siesta</div>
+      </div>
+      <div class="stat" data-metric="wakeups">
+        <div class="stat-label" data-i18n="wakeupsPerNight">Despertars / nit</div>
+        <div class="stat-value" id="sleepPatternWakeups">—</div>
+        <div class="stat-sub" id="sleepPatternWakeupsSub">—</div>
+      </div>
+      <div class="stat" data-metric="fasting">
+        <div class="stat-label" data-i18n="avgFasting">Dejuni mig</div>
+        <div class="stat-value" id="sleepPatternFasting">—</div>
+        <div class="stat-sub" data-i18n="closingToWake">de tancament a despertar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" data-i18n="observations">Observacions</div>
+    <div id="insights"></div>
+  </div>
+</div>
+
+<!-- Històric -->
+<div class="tab-content" id="tab-history">
+  <div class="card">
+    <div class="card-title" data-i18n="dailyTotals">Totals diaris</div>
+    <div id="dailyTotals"></div>
+  </div>
+  <div class="card">
+    <div class="card-title" data-i18n="sleepPerDay">Son per dia</div>
+    <p class="card-subtitle" data-i18n="sleepPerDayDesc">Hores totals de son per dia, amb la barra mostrant la proporció nit / siestas.</p>
+    <div id="sleepHistoryList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title" data-i18n="avgInterval">Interval mitjà entre preses</div>
+    <p class="card-subtitle" data-i18n="avgIntervalDesc">Quant de temps passa entre cada presa, per dia. Intervals més curts vol dir que menja més sovint.</p>
+    <div id="intervalsList"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-actions">
+    <button class="footer-btn" id="exportBtn" data-i18n="exportData">Exportar dades</button>
+    <button class="footer-btn" id="importBtn" data-i18n="importData">Importar dades</button>
+    <input type="file" id="importInput" accept=".json,.csv" style="display:none">
+    <button class="footer-btn" id="clearBtn" data-i18n="clearAll">Esborrar tot</button>
+  </div>
+  <div class="footer-note" data-i18n="dataLocal">Les dades es guarden localment al navegador</div>
+</footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+// ============== i18n ==============
+const I18N = {
+  ca: {
+    subtitle: 'Biberons i son',
+    tabFeeds: 'Biberons', tabSleep: 'Son', tabPatterns: 'Patrons', tabHistory: 'Històric',
+    newBottle: 'Nou biberó', date: 'Data', time: 'Hora', quantity: 'Quantitat (ml)',
+    cereals: 'Cereals (cullerades)', addBottle: 'Afegir biberó',
+    bottlesToday: 'Biberons d\'avui', bottlesThatDay: 'Biberons d\'aquell dia',
+    noBottlesToday: 'Encara no hi ha biberons avui', noBottlesThatDay: 'Sense biberons registrats aquell dia',
+    mlToday: 'ml avui', mlThatDay: 'ml aquell dia',
+    today: 'Avui', yesterday: 'Ahir', dayBeforeYesterday: 'Abans-d\'ahir',
+    recordSleep: 'Registrar son', startNap: 'Comença siesta', startNight: 'Comença nit',
+    addManually: '+ Afegir manualment', manualEntry: 'Entrada manual',
+    type: 'Tipus', nap: 'Siesta', night: 'Nit', startTime: 'Hora inici', endTime: 'Hora fi',
+    startDate: 'Data inici', addSleep: 'Afegir son',
+    napInProgress: 'SIESTA EN CURS', nightInProgress: 'NIT EN CURS', since: 'Des de les',
+    sleeping: 'Dormint', wokeUp: 'S\'ha despertat',
+    sleepTotal: 'Son total', wakeupsNight: 'Despertars nit', naps: 'Sietas', nightSleep: 'Son nocturn',
+    nightFeeds: 'Preses nocturnes', avg7: 'Mitjana 7 dies', avgWakeups: 'Despertars mitjans',
+    duringNight: 'durant la nit', record: 'registre', records: 'registres',
+    nap1: 'siesta', napsPlural: 'sietas', lastNight: 'última nit', before8: 'abans de les 8h',
+    sleepTotalPerDay: 'son total/dia', perNight7: 'per nit (7 dies)',
+    noSleepsToday: 'Encara no hi ha sons avui', noSleepsThatDay: 'Sense sons registrats aquell dia',
+    napType: 'siesta', nightType: 'nit',
+    noneYet: 'cap encara', none: 'cap', noNightData: 'sense dades de nit', noNightYet: 'cap nit encara',
+    noInterruptions: 'sense interrupcions ✓', noneRecorded: 'cap registrada', tracks: 'trams',
+    week: 'Setmana', fortnight: 'Quinzena', month: 'Mes',
+    evolutionWeekly: 'Evolució setmanal', evolutionFortnightly: 'Evolució quinzenal', evolutionMonthly: 'Evolució mensual',
+    whatToExpect: 'Què esperar segons l\'hora', avgVolumeBand: 'Volum mitjà per franja horària.',
+    avgDailyPattern: 'Patró diari mitjà', avgPerDay: 'Mitjana / dia', avgPerFeed: 'Mitjana / presa',
+    feedsPerDay: 'Preses / dia', avgNightVolume: 'Volum nocturn mitjà', notForced: 'no forçada', ofAvg: 'de mitjana',
+    sleepPatterns: 'Patrons del son', sleepTotalDay: 'Son total / dia', avgNightSleep2: 'Son nocturn mig',
+    napsPerDay: 'Sietas / dia', napDuration: 'Durada siesta', wakeupsPerNight: 'Despertars / nit',
+    avgFasting: 'Dejuni mig', perNap: 'per siesta',
+    closingToWake: 'de tancament a despertar', observations: 'Observacions',
+    dailyTotals: 'Totals diaris', sleepPerDay: 'Son per dia',
+    sleepPerDayDesc: 'Hores totals de son per dia, amb la barra mostrant la proporció nit / siestas.',
+    avgInterval: 'Interval mitjà entre preses',
+    avgIntervalDesc: 'Quant de temps passa entre cada presa, per dia. Intervals més curts vol dir que menja més sovint.',
+    noSleepRecords: 'Encara no hi ha registres de son. Comença a registrar a la pestanya "Son".',
+    exportData: 'Exportar dades', importData: 'Importar dades', clearAll: 'Esborrar tot',
+    dataLocal: 'Les dades es guarden localment al navegador',
+    missingData: 'Falten dades', sleepAdded: 'Son afegit ✓',
+    activeSleepClosed: 'son en curs tancat', activeSleepShifted: 'son en curs ajustat',
+    napStarted: 'Siesta començada ☀', nightStarted: 'Nit començada ☾', sleepRecorded: 'Son registrat ✓',
+    alreadyActive: 'Ja hi ha un son actiu', deleteSleepConfirm: 'Esborrar aquest registre de son?',
+    allDeleted: 'Tot esborrat',
+    confirmClear: 'Segur que vols esborrar TOTES les preses i sons? (recomanat exportar abans)',
+    dataExported: 'Dades exportades ✓', missingDateTime: 'Falta data, hora o ml',
+    deleteFeedConfirm: 'Esborrar aquesta presa?',
+    noHistory: 'sense històric', noReference: 'sense referència',
+    aheadOfExpected: 'per davant del previst', belowExpected: 'per sota del previst', onPace: 'al ritme previst',
+    vsUsual: 'habitual', needSecondFeed: 'cal una segona presa',
+    bedtimeTarget: 'objectiu abans de dormir', histAvg: 'mitjana històrica',
+    vsExpected: 'vs progrés esperat',
+    avgFeedTodayLabel: 'Mitjana / presa avui', paceLabel: 'Ritme respecte a l\'hora',
+    intervalTodayLabel: 'Interval entre preses avui', bedtimeVolLabel: 'Volum a anar a dormir',
+    goalDailyLabel: 'Objectiu diari (24h)', countTodayLabel: 'Preses avui', totalTodayLabel: 'Total avui',
+    avgDailyLabel: 'Mitjana diària',
+    targetUntilMidnight: 'Objectiu fins a 00:00', mlTarget: 'ml objectiu', complete: 'complet', notEnoughForecast: 'Encara no hi ha prou dades per pronosticar.',
+    feedsDone: 'Preses fetes', basedComplete: 'basat en dies complets',
+  },
+  en: {
+    subtitle: 'Bottles & sleep',
+    tabFeeds: 'Bottles', tabSleep: 'Sleep', tabPatterns: 'Patterns', tabHistory: 'History',
+    newBottle: 'New bottle', date: 'Date', time: 'Time', quantity: 'Amount (ml)',
+    cereals: 'Cereal (spoons)', addBottle: 'Add bottle',
+    bottlesToday: 'Today\'s bottles', bottlesThatDay: 'That day\'s bottles',
+    noBottlesToday: 'No bottles yet today', noBottlesThatDay: 'No bottles recorded that day',
+    mlToday: 'ml today', mlThatDay: 'ml that day',
+    today: 'Today', yesterday: 'Yesterday', dayBeforeYesterday: 'Day before',
+    recordSleep: 'Record sleep', startNap: 'Start nap', startNight: 'Start night',
+    addManually: '+ Add manually', manualEntry: 'Manual entry',
+    type: 'Type', nap: 'Nap', night: 'Night', startTime: 'Start time', endTime: 'End time',
+    startDate: 'Start date', addSleep: 'Add sleep',
+    napInProgress: 'NAP IN PROGRESS', nightInProgress: 'NIGHT IN PROGRESS', since: 'Since',
+    sleeping: 'Sleeping', wokeUp: 'Woke up',
+    sleepTotal: 'Total sleep', wakeupsNight: 'Night wakeups', naps: 'Naps', nightSleep: 'Night sleep',
+    nightFeeds: 'Night feeds', avg7: '7-day average', avgWakeups: 'Avg wakeups',
+    duringNight: 'during the night', record: 'record', records: 'records',
+    nap1: 'nap', napsPlural: 'naps', lastNight: 'last night', before8: 'before 8am',
+    sleepTotalPerDay: 'total sleep/day', perNight7: 'per night (7 days)',
+    noSleepsToday: 'No sleep recorded yet today', noSleepsThatDay: 'No sleep recorded that day',
+    napType: 'nap', nightType: 'night',
+    noneYet: 'none yet', none: 'none', noNightData: 'no night data', noNightYet: 'no night yet',
+    noInterruptions: 'no interruptions ✓', noneRecorded: 'none recorded', tracks: 'tracks',
+    week: 'Week', fortnight: 'Fortnight', month: 'Month',
+    evolutionWeekly: 'Weekly evolution', evolutionFortnightly: 'Fortnightly evolution', evolutionMonthly: 'Monthly evolution',
+    whatToExpect: 'What to expect by time of day', avgVolumeBand: 'Average volume by time band.',
+    avgDailyPattern: 'Average daily pattern', avgPerDay: 'Avg / day', avgPerFeed: 'Avg / feed',
+    feedsPerDay: 'Feeds / day', avgNightVolume: 'Avg night volume', notForced: 'unforced', ofAvg: 'on average',
+    sleepPatterns: 'Sleep patterns', sleepTotalDay: 'Total sleep / day', avgNightSleep2: 'Avg night sleep',
+    napsPerDay: 'Naps / day', napDuration: 'Nap duration', wakeupsPerNight: 'Wakeups / night',
+    avgFasting: 'Avg fasting', perNap: 'per nap',
+    closingToWake: 'from last feed to wakeup', observations: 'Observations',
+    dailyTotals: 'Daily totals', sleepPerDay: 'Sleep per day',
+    sleepPerDayDesc: 'Total hours of sleep per day, the bar showing the night / nap split.',
+    avgInterval: 'Average interval between feeds',
+    avgIntervalDesc: 'How much time passes between feeds, per day. Shorter intervals mean more frequent feeding.',
+    noSleepRecords: 'No sleep records yet. Start recording in the "Sleep" tab.',
+    exportData: 'Export data', importData: 'Import data', clearAll: 'Clear all',
+    dataLocal: 'Data is stored locally in your browser',
+    missingData: 'Missing data', sleepAdded: 'Sleep added ✓',
+    activeSleepClosed: 'ongoing sleep closed', activeSleepShifted: 'ongoing sleep adjusted',
+    napStarted: 'Nap started ☀', nightStarted: 'Night started ☾', sleepRecorded: 'Sleep recorded ✓',
+    alreadyActive: 'A sleep is already active', deleteSleepConfirm: 'Delete this sleep record?',
+    allDeleted: 'All cleared',
+    confirmClear: 'Are you sure you want to delete ALL feeds and sleep? (export first recommended)',
+    dataExported: 'Data exported ✓', missingDateTime: 'Missing date, time or ml',
+    deleteFeedConfirm: 'Delete this feed?',
+    noHistory: 'no history', noReference: 'no reference',
+    aheadOfExpected: 'ahead of expected', belowExpected: 'below expected', onPace: 'on pace',
+    vsUsual: 'usual', needSecondFeed: 'need a second feed',
+    bedtimeTarget: 'target before bed', histAvg: 'historical average',
+    vsExpected: 'vs expected progress',
+    avgFeedTodayLabel: 'Avg / feed today', paceLabel: 'Pace vs time of day',
+    intervalTodayLabel: 'Interval between feeds today', bedtimeVolLabel: 'Volume by bedtime',
+    goalDailyLabel: 'Daily goal (24h)', countTodayLabel: 'Feeds today', totalTodayLabel: 'Total today',
+    avgDailyLabel: 'Daily average',
+    targetUntilMidnight: 'Target until 00:00', mlTarget: 'ml goal', complete: 'complete', notEnoughForecast: 'Not enough data to forecast yet.',
+    feedsDone: 'Feeds done', basedComplete: 'based on complete days',
+  },
+};
+
+const LANG_KEY = 'gala_lang';
+let currentLang = (function() {
+  try { return localStorage.getItem(LANG_KEY) || 'ca'; } catch (e) { return 'ca'; }
+})();
+
+function t(key) {
+  const dict = I18N[currentLang] || I18N.ca;
+  return dict[key] !== undefined ? dict[key] : (I18N.ca[key] !== undefined ? I18N.ca[key] : key);
+}
+
+// Inline bilingual helper for sentences with heavy interpolation
+function L(ca, en) {
+  return currentLang === 'en' ? en : ca;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+  applyStaticTranslations();
+  render();
+}
+
+function applyStaticTranslations() {
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const txt = t(key);
+    if (txt) el.textContent = txt;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+}
+
+// ============== Initial seed data ==============
+const SEED_DATA = [
+  { date: '2026-05-09', time: '08:00', qty: 60 },
+  { date: '2026-05-09', time: '12:00', qty: 120 },
+  { date: '2026-05-09', time: '13:30', qty: 30 },
+  { date: '2026-05-09', time: '16:00', qty: 160 },
+  { date: '2026-05-09', time: '19:00', qty: 150 },
+  { date: '2026-05-09', time: '22:30', qty: 100 },
+  { date: '2026-05-09', time: '03:00', qty: 100 },
+  { date: '2026-05-10', time: '08:00', qty: 140 },
+  { date: '2026-05-10', time: '12:30', qty: 180 },
+  { date: '2026-05-10', time: '16:00', qty: 160 },
+  { date: '2026-05-10', time: '20:00', qty: 170 },
+  { date: '2026-05-10', time: '23:00', qty: 90 },
+  { date: '2026-05-10', time: '04:00', qty: 100 },
+  { date: '2026-05-11', time: '08:30', qty: 140 },
+  { date: '2026-05-11', time: '13:00', qty: 160 },
+  { date: '2026-05-11', time: '17:00', qty: 170 },
+  { date: '2026-05-11', time: '20:00', qty: 170 },
+  { date: '2026-05-11', time: '04:30', qty: 100 },
+  { date: '2026-05-12', time: '10:00', qty: 90 },
+  { date: '2026-05-12', time: '13:00', qty: 170 },
+  { date: '2026-05-12', time: '16:15', qty: 100 },
+  { date: '2026-05-12', time: '18:00', qty: 120 },
+  { date: '2026-05-12', time: '21:40', qty: 90 },
+  { date: '2026-05-12', time: '23:45', qty: 110 },
+  { date: '2026-05-12', time: '05:10', qty: 100 },
+  { date: '2026-05-13', time: '10:00', qty: 90 },
+  { date: '2026-05-13', time: '13:00', qty: 100 },
+  { date: '2026-05-13', time: '15:50', qty: 150 },
+  { date: '2026-05-13', time: '19:00', qty: 90 },
+  { date: '2026-05-13', time: '20:00', qty: 100 },
+];
+
+const STORAGE_KEY = 'gala_feeds_v3';
+const SEED_LOADED_KEY = 'gala_feeds_v3_seed';
+
+// CUTOFF for "before bed" = 00:00 (midnight). Pre-bed = feeds from 06:00 to before 00:00 of the same logical day.
+// Hour bands (24h, but logical day starts at 06:00)
+const HOUR_BANDS = [
+  { label: 'Matí', labelEn: 'Morning', icon: '☀', start: 6, end: 11 },        // 06:00-10:59
+  { label: 'Migdia', labelEn: 'Midday', icon: '☀', start: 11, end: 15 },     // 11:00-14:59
+  { label: 'Tarda', labelEn: 'Afternoon', icon: '☀', start: 15, end: 19 },      // 15:00-18:59
+  { label: 'Vespre', labelEn: 'Evening', icon: '☀', start: 19, end: 22 },     // 19:00-21:59
+  { label: 'Nit', labelEn: 'Night', icon: '☾', start: 22, end: 24 },        // 22:00-23:59
+  { label: 'Matinada', labelEn: 'Early hours', icon: '☾', start: 0, end: 6 },     // 00:00-05:59
+];
+
+// ============== State ==============
+let feeds = [];
+let viewedDay = null; // Which day the Today tab is showing. null = todayISO(). Otherwise an ISO date.
+let viewedSleepDay = null; // Which day the Son tab is showing. null = todayISO().
+let sleeps = []; // [{ id, type: 'nap'|'night', startDate, startTime, endDate, endTime }]
+let activeSleep = null; // { id, type, startDate, startTime } when sleep in progress
+let currentPeriod = 7; // 7 = week, 14 = fortnight, 30 = month (for Patterns tab)
+
+const SLEEP_STORAGE_KEY = 'gala_sleeps_v1';
+const ACTIVE_SLEEP_KEY = 'gala_active_sleep_v1';
+
+function loadFeeds() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      feeds = JSON.parse(stored);
+    } else if (!localStorage.getItem(SEED_LOADED_KEY)) {
+      feeds = [...SEED_DATA];
+      localStorage.setItem(SEED_LOADED_KEY, '1');
+      saveFeeds();
+    }
+  } catch (e) { console.error(e); feeds = []; }
+}
+function saveFeeds() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(feeds)); } catch (e) { console.error(e); }
+}
+
+function loadSleeps() {
+  try {
+    const stored = localStorage.getItem(SLEEP_STORAGE_KEY);
+    if (stored) sleeps = JSON.parse(stored);
+    const active = localStorage.getItem(ACTIVE_SLEEP_KEY);
+    if (active) activeSleep = JSON.parse(active);
+  } catch (e) { console.error(e); sleeps = []; activeSleep = null; }
+}
+function saveSleeps() {
+  try {
+    localStorage.setItem(SLEEP_STORAGE_KEY, JSON.stringify(sleeps));
+    if (activeSleep) localStorage.setItem(ACTIVE_SLEEP_KEY, JSON.stringify(activeSleep));
+    else localStorage.removeItem(ACTIVE_SLEEP_KEY);
+  } catch (e) { console.error(e); }
+}
+
+// ============== Helpers ==============
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function todayISO() {
+  // The day starts at 08:00. Before 08:00, we're still in "yesterday's" logical day.
+  const d = new Date();
+  if (d.getHours() < DAY_START_HOUR) {
+    d.setDate(d.getDate() - 1);
+  }
+  return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+function realTodayISO() {
+  // Calendar date (for the date input default)
+  const d = new Date();
+  return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+function nowTime() {
+  const d = new Date();
+  return pad(d.getHours()) + ':' + pad(d.getMinutes());
+}
+function formatDate(iso) {
+  const [y, m, d] = iso.split('-');
+  return d + '/' + m;
+}
+function timeToMinutes(t) {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+}
+// The "day" runs from 08:00 to the next 08:00.
+// A feed before 08:00 belongs to the previous logical day (it's the nocturnal wake-up).
+const DAY_START_HOUR = 8;
+
+function isBeforeDayStart(t) {
+  return timeToMinutes(t) < DAY_START_HOUR * 60;
+}
+function isEarlyMorning(t) {
+  // Kept name for compatibility — same meaning: feeds that belong to the prior day's nocturnal session.
+  return isBeforeDayStart(t);
+}
+function isNightTime(t) {
+  // Visual cue: night icon for late evening or early morning
+  const m = timeToMinutes(t);
+  return m >= 22 * 60 || m < 6 * 60;
+}
+function logicalDay(feed) {
+  // The user already groups night feeds with the day they started (day begins at 08:00 conceptually).
+  // So we trust the date they entered as-is. No shifting.
+  return feed.date;
+}
+function sortFeeds(arr) {
+  return [...arr].sort((a, b) => {
+    const lda = logicalDay(a), ldb = logicalDay(b);
+    if (lda !== ldb) return lda < ldb ? -1 : 1;
+    // Within a logical day: feeds 08:00–23:59 come first, then early-morning feeds at the end
+    const ma = timeToMinutes(a.time), mb = timeToMinutes(b.time);
+    const aPrio = isBeforeDayStart(a.time) ? ma + 24 * 60 : ma;
+    const bPrio = isBeforeDayStart(b.time) ? mb + 24 * 60 : mb;
+    return aPrio - bPrio;
+  });
+}
+function groupByLogicalDay() {
+  const groups = {};
+  sortFeeds(feeds).forEach(f => {
+    const ld = logicalDay(f);
+    if (!groups[ld]) groups[ld] = [];
+    groups[ld].push(f);
+  });
+  return groups;
+}
+// Feed contributes to "pre-bed" (volum diürn fins anar a dormir): 06:00 to before 24:00 of same day.
+// Feeds before 06:00 are the nocturnal wake-up feeds (count toward day total but not pre-bed).
+function isPreBed(f) {
+  return !isEarlyMorning(f.time);
+}
+// Nocturnal: feeds after 22:00 (going-to-bed late feed) OR before 06:00 (night wake-up).
+function isNocturnal(f) {
+  return isEarlyMorning(f.time) || timeToMinutes(f.time) >= 22 * 60;
+}
+// The "wake-up" feed: the early-morning feed of the day (the one that wakes you up at night)
+function getWakeUpFeed(dayFeeds) {
+  return dayFeeds.find(f => isEarlyMorning(f.time));
+}
+// All wakeup feeds: any feed before 08:00 (early morning).
+// Note: feeds at 22:00-23:59 are "going-to-bed" feeds, not wakeups. We don't count those.
+function getWakeUpFeeds(dayFeeds) {
+  return dayFeeds.filter(f => isEarlyMorning(f.time));
+}
+// The "closing" feed: the last feed before midnight (after 06:00, before 24:00)
+function getClosingFeed(dayFeeds) {
+  const pre = dayFeeds.filter(isPreBed);
+  return pre.length ? pre[pre.length - 1] : null;
+}
+
+// ============== Stats ==============
+function dayStats(dayKey) {
+  const dayFeeds = groupByLogicalDay()[dayKey] || [];
+  const total = dayFeeds.reduce((s, f) => s + f.qty, 0);
+  const count = dayFeeds.length;
+  const preBed = dayFeeds.filter(isPreBed).reduce((s, f) => s + f.qty, 0);
+  const preBedCount = dayFeeds.filter(isPreBed).length;
+  const nightMl = dayFeeds.filter(isNocturnal).reduce((s, f) => s + f.qty, 0);
+  return { total, count, preBed, preBedCount, nightMl, feeds: dayFeeds };
+}
+function getCompletedDayKeys() {
+  const tToday = todayISO();
+  const groups = groupByLogicalDay();
+  // A day counts as "complete" if it's before today AND has at least 3 feeds
+  return Object.keys(groups).filter(k => k < tToday && groups[k].length >= 3).sort();
+}
+
+// Same as getCompletedDayKeys, but only including days strictly before `asOfDay`.
+// Used when computing historical averages "as of" a past day so the numbers
+// match what they'd have shown that day.
+function getCompletedDayKeysAsOf(asOfDay) {
+  if (!asOfDay) return getCompletedDayKeys();
+  const groups = groupByLogicalDay();
+  return Object.keys(groups).filter(k => k < asOfDay && groups[k].length >= 3).sort();
+}
+
+function historicalAverages(asOfDay) {
+  return periodAverages(7, asOfDay);
+}
+
+// Rolling-window averages over completed days before `asOfDay` (or today if absent)
+function periodAverages(windowDays, asOfDay) {
+  const allKeys = getCompletedDayKeysAsOf(asOfDay);
+  const keys = allKeys.slice(-windowDays);
+  if (keys.length === 0) return { avgTotal: 0, avgPreBed: 0, avgCount: 0, days: 0, avgPerFeed: 0, avgNight: 0, windowSize: 0, totalDaysRecorded: allKeys.length };
+  let sumTotal = 0, sumPreBed = 0, sumCount = 0, sumNight = 0;
+  keys.forEach(k => {
+    const s = dayStats(k);
+    sumTotal += s.total; sumPreBed += s.preBed; sumCount += s.count; sumNight += s.nightMl;
+  });
+  const n = keys.length;
+  return {
+    avgTotal: sumTotal / n, avgPreBed: sumPreBed / n, avgCount: sumCount / n,
+    avgPerFeed: sumTotal / keys.reduce((s, k) => s + dayStats(k).count, 0),
+    avgNight: sumNight / n, days: n,
+    windowSize: keys.length,
+    totalDaysRecorded: allKeys.length,
+  };
+}
+
+// Bedtime accumulator average (last 7 completed days before asOfDay)
+function computeBedtimeAvgMl(asOfDay) {
+  const allKeys = getCompletedDayKeysAsOf(asOfDay);
+  const keys = allKeys.slice(-7);
+  if (keys.length === 0) return 0;
+  let sum = 0;
+  keys.forEach(k => {
+    sum += dayStats(k).preBed;
+  });
+  return sum / keys.length;
+}
+
+// Mitjanes d'intervals entre preses
+function computeIntervalsPerDay() {
+  const keys = getCompletedDayKeys();
+  const result = []; // [{day, intervalsHours: [...], avgHours}]
+  keys.forEach(k => {
+    const dayFeeds = groupByLogicalDay()[k];
+    const intervals = [];
+    for (let i = 1; i < dayFeeds.length; i++) {
+      const prev = dayFeeds[i - 1], cur = dayFeeds[i];
+      let prevMin = timeToMinutes(prev.time);
+      let curMin = timeToMinutes(cur.time);
+      // Within a logical day, early-morning feeds are conceptually "tomorrow morning"
+      if (isBeforeDayStart(prev.time)) prevMin += 24 * 60;
+      if (isBeforeDayStart(cur.time)) curMin += 24 * 60;
+      const diffH = (curMin - prevMin) / 60;
+      if (diffH > 0) intervals.push(diffH);
+    }
+    const avg = intervals.length ? intervals.reduce((a, b) => a + b, 0) / intervals.length : 0;
+    result.push({ day: k, intervals, avgHours: avg, count: dayFeeds.length });
+  });
+  return result;
+}
+
+// ============== Hour bands ==============
+function hourBandStats(windowDays) {
+  let keys = getCompletedDayKeys();
+  if (windowDays && windowDays > 0) keys = keys.slice(-windowDays);
+  const bands = HOUR_BANDS.map(b => ({ ...b, feeds: [], total: 0, perDay: 0 }));
+  keys.forEach(k => {
+    const dayFeeds = groupByLogicalDay()[k];
+    dayFeeds.forEach(f => {
+      const m = timeToMinutes(f.time);
+      const h = m / 60;
+      for (const band of bands) {
+        if (h >= band.start && h < band.end) {
+          band.feeds.push(f);
+          band.total += f.qty;
+          break;
+        }
+      }
+    });
+  });
+  bands.forEach(b => { b.perDay = keys.length ? b.total / keys.length : 0; });
+  return bands;
+}
+
+// ============== Wake-up prediction ==============
+// Strategy: use historical (closing-feed total ml, closing-feed time) -> wake-up time
+// Simple model: hour_of_wake = a + b1 * preBed_total + b2 * closing_hour
+// But with only 4 days, use a weighted-nearest-neighbour approach instead
+function predictWakeUp(currentPreBed, currentClosingTimeMin, currentClosingCereals, asOfDay) {
+  // Only use the last 7 completed days before asOfDay (or before today)
+  const allKeys = getCompletedDayKeysAsOf(asOfDay);
+  const keys = allKeys.slice(-7);
+  const samples = [];
+  keys.forEach(k => {
+    const dayFeeds = groupByLogicalDay()[k];
+    const wake = getWakeUpFeed(dayFeeds);
+    const closing = getClosingFeed(dayFeeds);
+    const s = dayStats(k);
+    if (closing) {
+      let closingMin = timeToMinutes(closing.time);
+      let wakeMin = null;
+      if (wake) {
+        wakeMin = timeToMinutes(wake.time) + 24 * 60;
+      }
+      samples.push({
+        preBed: s.preBed,
+        closingMin: closingMin,
+        closingTime: closing.time,
+        closingCereals: closing.cereals || 0,
+        wakeFeed: wake,
+        wakeTime: wake ? wake.time : null,
+        wakeMin: wakeMin,
+      });
+    }
+  });
+  if (samples.length === 0) return null;
+
+  // Weight samples by similarity across 3 dimensions:
+  //   preBed total ml (scale ~100)
+  //   closing time (scale ~60 min)
+  //   closing-feed cereal spoons (scale ~1 spoon)
+  const cerealsKnown = typeof currentClosingCereals === 'number';
+  let totalW = 0;
+  let weightedWakeMin = 0;
+  let weightedFastingMin = 0;
+  const validSamples = samples.filter(s => s.wakeMin !== null);
+  if (validSamples.length === 0) {
+    return { kind: 'no-wake', samples };
+  }
+  validSamples.forEach(s => {
+    const preBedDiff = Math.abs(s.preBed - currentPreBed) / 100;
+    const closingDiff = Math.abs(s.closingMin - currentClosingTimeMin) / 60;
+    let cerealDiff = 0;
+    if (cerealsKnown) {
+      cerealDiff = Math.abs(s.closingCereals - currentClosingCereals) / 1.5;
+    }
+    const dist = Math.sqrt(preBedDiff * preBedDiff + closingDiff * closingDiff + cerealDiff * cerealDiff);
+    const w = 1 / (1 + dist);
+    totalW += w;
+    weightedWakeMin += s.wakeMin * w;
+    const fasting = s.wakeMin - s.closingMin;
+    weightedFastingMin += fasting * w;
+  });
+  const predictedWakeMin = weightedWakeMin / totalW;
+  const predictedFasting = weightedFastingMin / totalW;
+  const estimatedWakeMinFromNow = currentClosingTimeMin + predictedFasting;
+  const wakeMins = validSamples.map(s => s.wakeMin);
+  const meanWake = wakeMins.reduce((a, b) => a + b, 0) / wakeMins.length;
+  const variance = wakeMins.reduce((a, b) => a + (b - meanWake) ** 2, 0) / wakeMins.length;
+  const stdDev = Math.sqrt(variance);
+
+  let confidence = Math.min(5, validSamples.length);
+  if (stdDev > 90) confidence = Math.max(1, confidence - 2);
+  else if (stdDev > 60) confidence = Math.max(1, confidence - 1);
+
+  // How many samples have similar cereal level (within 1 spoon)?
+  let cerealSampleCount = 0;
+  if (cerealsKnown) {
+    cerealSampleCount = validSamples.filter(s => Math.abs(s.closingCereals - currentClosingCereals) <= 1).length;
+  }
+
+  return {
+    kind: 'predicted',
+    wakeMinAbsolute: estimatedWakeMinFromNow,
+    stdDev,
+    confidence,
+    samples: validSamples,
+    fastingHours: predictedFasting / 60,
+    cerealsKnown,
+    cerealSampleCount,
+    currentClosingCereals: cerealsKnown ? currentClosingCereals : null,
+  };
+}
+function minToTimeStr(min) {
+  let m = ((min % (24 * 60)) + 24 * 60) % (24 * 60);
+  const h = Math.floor(m / 60);
+  const mm = Math.round(m % 60);
+  return pad(h) + ':' + pad(mm);
+}
+
+// ============== UI: Tabs ==============
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+  });
+});
+
+// Period selector (Patrons tab)
+document.querySelectorAll('.period-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    currentPeriod = parseInt(b.dataset.period, 10);
+    renderPatterns();
+  });
+});
+
+// ============== Form ==============
+function initForm() {
+  // Form uses real calendar date (what the user types when entering a feed)
+  document.getElementById('date').value = realTodayISO();
+  document.getElementById('time').value = nowTime();
+}
+document.getElementById('entryForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  try {
+    let date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const qtyStr = document.getElementById('qty').value;
+    const qty = parseInt(qtyStr, 10);
+    const cereals = parseInt(document.getElementById('cereals').value, 10) || 0;
+    if (!date || !time || !qty || isNaN(qty) || qty < 1) {
+      showToast(t('missingDateTime'));
+      return;
+    }
+    if (isBeforeDayStart(time)) {
+      const d = new Date(date + 'T12:00:00');
+      d.setDate(d.getDate() - 1);
+      date = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+    const feedObj = { date, time, qty };
+    if (cereals > 0) feedObj.cereals = cereals;
+    feeds.push(feedObj);
+    saveFeeds();
+    const cerealMsg = cereals > 0 ? ' + ' + cereals + ' cull. cereals' : '';
+    showToast(qty + ' ml' + cerealMsg + ' ' + (currentLang === 'en' ? 'added ✓' : 'afegits ✓'));
+    document.getElementById('qty').value = '';
+    document.getElementById('cereals').value = '0';
+    updateCerealUI();
+    document.querySelectorAll('.quick-vol').forEach(x => x.classList.remove('active'));
+    document.getElementById('date').value = realTodayISO();
+    document.getElementById('time').value = nowTime();
+    viewedDay = null;
+    render();
+  } catch (err) {
+    console.error('Error afegint presa:', err);
+    showToast('Error: ' + err.message);
+  }
+});
+document.querySelectorAll('.quick-vol').forEach(b => {
+  b.addEventListener('click', () => {
+    document.getElementById('qty').value = b.dataset.v;
+    document.querySelectorAll('.quick-vol').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+
+// Cereal counter
+function updateCerealUI() {
+  const v = parseInt(document.getElementById('cereals').value, 10) || 0;
+  const valEl = document.getElementById('cerealValue');
+  valEl.textContent = v;
+  if (v === 0) valEl.classList.add('zero');
+  else valEl.classList.remove('zero');
+  document.getElementById('cerealMinus').disabled = v <= 0;
+  document.getElementById('cerealPlus').disabled = v >= 6;
+}
+document.getElementById('cerealMinus').addEventListener('click', () => {
+  const cur = parseInt(document.getElementById('cereals').value, 10) || 0;
+  if (cur > 0) {
+    document.getElementById('cereals').value = cur - 1;
+    updateCerealUI();
+  }
+});
+document.getElementById('cerealPlus').addEventListener('click', () => {
+  const cur = parseInt(document.getElementById('cereals').value, 10) || 0;
+  if (cur < 6) {
+    document.getElementById('cereals').value = cur + 1;
+    updateCerealUI();
+  }
+});
+
+// Day navigation - Biberons (feeds)
+document.getElementById('dayPrev').addEventListener('click', () => {
+  const today = todayISO();
+  const current = viewedDay || today;
+  const d = new Date(current + 'T12:00:00');
+  d.setDate(d.getDate() - 1);
+  viewedDay = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  render();
+});
+document.getElementById('dayNext').addEventListener('click', () => {
+  const today = todayISO();
+  const current = viewedDay || today;
+  if (current >= today) return;
+  const d = new Date(current + 'T12:00:00');
+  d.setDate(d.getDate() + 1);
+  const next = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  viewedDay = next >= today ? null : next;
+  render();
+});
+// Calendar picker on the date label (Biberons)
+document.getElementById('dayNavLabelCal').addEventListener('change', (e) => {
+  const today = todayISO();
+  const val = e.target.value;
+  if (!val) return;
+  viewedDay = val >= today ? null : val;
+  render();
+});
+// Calendar icon button (Biberons) - also lets user pick a date
+document.getElementById('dayCalInput').addEventListener('change', (e) => {
+  const today = todayISO();
+  const val = e.target.value;
+  if (!val) return;
+  viewedDay = val >= today ? null : val;
+  render();
+});
+
+// Day navigation - Son (sleep)
+document.getElementById('sleepDayPrev').addEventListener('click', () => {
+  const today = todayISO();
+  const current = viewedSleepDay || today;
+  const d = new Date(current + 'T12:00:00');
+  d.setDate(d.getDate() - 1);
+  viewedSleepDay = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  renderSleep();
+});
+document.getElementById('sleepDayNext').addEventListener('click', () => {
+  const today = todayISO();
+  const current = viewedSleepDay || today;
+  if (current >= today) return;
+  const d = new Date(current + 'T12:00:00');
+  d.setDate(d.getDate() + 1);
+  const next = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  viewedSleepDay = next >= today ? null : next;
+  renderSleep();
+});
+document.getElementById('sleepDayNavLabelCal').addEventListener('change', (e) => {
+  const today = todayISO();
+  const val = e.target.value;
+  if (!val) return;
+  viewedSleepDay = val >= today ? null : val;
+  renderSleep();
+});
+document.getElementById('sleepDayCalInput').addEventListener('change', (e) => {
+  const today = todayISO();
+  const val = e.target.value;
+  if (!val) return;
+  viewedSleepDay = val >= today ? null : val;
+  renderSleep();
+});
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+function deleteFeed(idx) {
+  if (!confirm(t('deleteFeedConfirm'))) return;
+  feeds.splice(idx, 1);
+  saveFeeds();
+  render();
+}
+
+// ============== Render: Today ==============
+function updateDayNav(dayKey, today) {
+  const titleEl = document.getElementById('dayNavTitle');
+  const subEl = document.getElementById('dayNavSub');
+  const prevBtn = document.getElementById('dayPrev');
+  const nextBtn = document.getElementById('dayNext');
+  const calInput = document.getElementById('dayCalInput');
+  const labelCalInput = document.getElementById('dayNavLabelCal');
+
+  const isToday = dayKey === today;
+  if (isToday) {
+    titleEl.textContent = t('today');
+    titleEl.className = 'day-nav-title';
+    subEl.textContent = formatDate(dayKey);
+  } else {
+    const dToday = new Date(today + 'T12:00:00');
+    const dViewed = new Date(dayKey + 'T12:00:00');
+    const diffDays = Math.round((dToday - dViewed) / (1000 * 60 * 60 * 24));
+    let label = '';
+    if (diffDays === 1) label = t('yesterday');
+    else if (diffDays === 2) label = t('dayBeforeYesterday');
+    else label = (currentLang === 'en' ? diffDays + ' days ago' : 'Fa ' + diffDays + ' dies');
+    titleEl.textContent = label;
+    titleEl.className = 'day-nav-title past';
+    subEl.textContent = formatDate(dayKey);
+  }
+
+  // Sync calendar inputs
+  if (calInput) {
+    calInput.value = dayKey;
+    calInput.max = today;
+  }
+  if (labelCalInput) {
+    labelCalInput.value = dayKey;
+    labelCalInput.max = today;
+  }
+
+  // Disable next button if we're on today
+  nextBtn.disabled = isToday;
+
+  // Disable prev button if there's no earlier day with data
+  const allKeys = Object.keys(groupByLogicalDay()).sort();
+  const earliest = allKeys[0];
+  prevBtn.disabled = !earliest || dayKey <= earliest;
+}
+
+function renderToday() {
+  const today = todayISO();
+  const dayKey = viewedDay || today;
+  const isToday = dayKey === today;
+  const tStats = dayStats(dayKey);
+  // For past days, use averages "as of" that day so historical context matches
+  const asOfDay = isToday ? null : dayKey;
+  const hist = historicalAverages(asOfDay);
+
+  // Update day navigator
+  updateDayNav(dayKey, today);
+
+  // ===== Daily goal section (24h total) =====
+  const goalTarget = Math.round(hist.avgTotal) || 770; // fallback ~770 ml
+  const current = tStats.total;
+  const pct = goalTarget > 0 ? Math.min(150, Math.round((current / goalTarget) * 100)) : 0;
+  const remaining = Math.max(0, goalTarget - current);
+
+  document.getElementById('goalCurrent').textContent = current;
+  document.getElementById('goalCurrentUnit').textContent = isToday ? t('mlToday') : t('mlThatDay');
+  document.getElementById('goalTarget').textContent = goalTarget;
+  document.getElementById('goalBar').style.width = Math.min(100, pct) + '%';
+  document.getElementById('goalPct').textContent = pct + '%';
+
+  // % label
+  let pctLabel = L('complet', 'complete');
+  if (pct >= 100) pctLabel = L('objectiu assolit ✓', 'goal reached ✓');
+  else if (pct >= 90) pctLabel = L('gairebé!', 'almost!');
+  document.getElementById('goalPctLabel').textContent = pctLabel;
+
+  // Remaining
+  if (remaining > 0) {
+    const word = isToday ? L('restants', 'remaining') : L('per sota', 'below');
+    document.getElementById('goalRemaining').textContent = remaining + ' ml ' + word;
+  } else {
+    const surplus = current - goalTarget;
+    document.getElementById('goalRemaining').textContent = surplus > 0 ? '+' + surplus + ' ml extra' : L('objectiu just', 'exactly on goal');
+  }
+
+  // Expected progress at current time. Day = 08:00 → 08:00 next day.
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  let dayElapsedMin;
+  if (nowMin >= DAY_START_HOUR * 60) {
+    dayElapsedMin = nowMin - DAY_START_HOUR * 60;
+  } else {
+    dayElapsedMin = (nowMin + 24 * 60) - DAY_START_HOUR * 60;
+  }
+  const expectedPct = Math.min(100, Math.round((dayElapsedMin / (24 * 60)) * 100));
+  const expectedMl = Math.round((dayElapsedMin / (24 * 60)) * goalTarget);
+
+  // Position the "ara" marker (only for today)
+  const marker = document.getElementById('goalBarMarker');
+  if (isToday) {
+    marker.style.display = 'block';
+    marker.style.left = expectedPct + '%';
+  } else {
+    marker.style.display = 'none';
+  }
+
+  // "anar a dormir" marker
+  const bedtimeAvg = computeBedtimeAvgMl(asOfDay);
+  const bedtimePct = goalTarget > 0 ? Math.min(100, (bedtimeAvg / goalTarget) * 100) : 0;
+  const bedtimeMarker = document.getElementById('goalBarBedtime');
+  if (hist.days > 0 && bedtimeAvg > 0) {
+    bedtimeMarker.style.display = 'block';
+    bedtimeMarker.style.left = bedtimePct + '%';
+    bedtimeMarker.innerHTML = '<span class="bedtime-label">☾ <strong>' + Math.round(bedtimeAvg) + ' ml</strong> a dormir</span>';
+  } else {
+    bedtimeMarker.style.display = 'none';
+  }
+
+  // Pace stat (only meaningful for today)
+  const paceEl = document.getElementById('pace');
+  const paceSubEl = document.getElementById('paceSub');
+  if (!isToday) {
+    // For past days, show total vs goal
+    const dDelta = current - goalTarget;
+    paceEl.innerHTML = (dDelta >= 0 ? '+' : '') + dDelta + '<span class="unit">ml</span>';
+    paceEl.style.color = dDelta > 0 ? 'var(--teal)' : (dDelta < -50 ? 'var(--rose)' : 'var(--moon)');
+    paceSubEl.textContent = L('vs objectiu diari', 'vs daily goal');
+  } else {
+    const paceDelta = current - expectedMl;
+    if (hist.days === 0) {
+      paceEl.textContent = '—';
+      paceSubEl.textContent = t('noHistory');
+    } else if (paceDelta > 30) {
+      paceEl.innerHTML = '+' + paceDelta + '<span class="unit">ml</span>';
+      paceEl.style.color = 'var(--teal)';
+      paceSubEl.textContent = t('aheadOfExpected');
+    } else if (paceDelta < -30) {
+      paceEl.innerHTML = paceDelta + '<span class="unit">ml</span>';
+      paceEl.style.color = 'var(--rose)';
+      paceSubEl.textContent = t('belowExpected');
+    } else {
+      paceEl.innerHTML = (paceDelta >= 0 ? '+' : '') + paceDelta + '<span class="unit">ml</span>';
+      paceEl.style.color = 'var(--moon)';
+      paceSubEl.textContent = t('onPace');
+    }
+  }
+
+  // Avg daily stat
+  document.getElementById('avgDailyStat').innerHTML = (hist.avgTotal ? Math.round(hist.avgTotal) : '—') + '<span class="unit">ml</span>';
+  document.getElementById('avgDailyStatSub').textContent = hist.totalDaysRecorded > 7
+    ? L('últims 7 dies (de ' + hist.totalDaysRecorded + ')', 'last 7 days (of ' + hist.totalDaysRecorded + ')')
+    : (hist.days + ' ' + (hist.days === 1 ? L('dia', 'day') : L('dies', 'days')));
+
+  // Today count
+  document.getElementById('todayCount2').textContent = tStats.count;
+  document.getElementById('todayCountSub').textContent = hist.avgCount ? '~' + hist.avgCount.toFixed(1) + ' ' + t('ofAvg') : t('noReference');
+
+  // Avg per feed today
+  const avgFeedToday = tStats.count > 0 ? Math.round(tStats.total / tStats.count) : 0;
+  document.getElementById('avgFeedToday').innerHTML = (avgFeedToday || '—') + '<span class="unit">ml</span>';
+  const avgFeedHist = hist.avgPerFeed ? Math.round(hist.avgPerFeed) : 0;
+  if (avgFeedHist > 0 && avgFeedToday > 0) {
+    const d = avgFeedToday - avgFeedHist;
+    const sign = d > 0 ? '+' : '';
+    document.getElementById('avgFeedTodaySub').textContent = sign + d + ' vs ~' + avgFeedHist + ' ' + t('vsUsual');
+  } else {
+    document.getElementById('avgFeedTodaySub').textContent = avgFeedHist ? 'vs ~' + avgFeedHist + ' ' + t('vsUsual') : t('noReference');
+  }
+
+  // Interval between feeds today vs historical
+  const todayIntervalsH = [];
+  for (let i = 1; i < tStats.feeds.length; i++) {
+    let prevMin = timeToMinutes(tStats.feeds[i - 1].time);
+    let curMin = timeToMinutes(tStats.feeds[i].time);
+    if (isBeforeDayStart(tStats.feeds[i - 1].time)) prevMin += 24 * 60;
+    if (isBeforeDayStart(tStats.feeds[i].time)) curMin += 24 * 60;
+    const diffH = (curMin - prevMin) / 60;
+    if (diffH > 0) todayIntervalsH.push(diffH);
+  }
+  const avgIntToday = todayIntervalsH.length ? todayIntervalsH.reduce((a, b) => a + b, 0) / todayIntervalsH.length : 0;
+  // Historical avg interval across completed days
+  const histIntervalsData = computeIntervalsPerDay();
+  const histAvgInt = histIntervalsData.length
+    ? histIntervalsData.reduce((s, d) => s + d.avgHours, 0) / histIntervalsData.length
+    : 0;
+  const intervalEl = document.getElementById('intervalToday');
+  const intervalSubEl = document.getElementById('intervalTodaySub');
+  function fmtHours(h) {
+    const hh = Math.floor(h);
+    const mm = Math.round((h - hh) * 60);
+    return hh + 'h' + (mm < 10 ? '0' : '') + mm;
+  }
+  if (avgIntToday > 0) {
+    intervalEl.textContent = fmtHours(avgIntToday);
+    if (histAvgInt > 0) {
+      const diff = avgIntToday - histAvgInt;
+      const absDiff = Math.abs(diff);
+      const sign = diff > 0 ? '+' : '−';
+      const diffH = Math.floor(absDiff);
+      const diffM = Math.round((absDiff - diffH) * 60);
+      let diffTxt = '';
+      if (diffH > 0) diffTxt += diffH + 'h';
+      if (diffM > 0) diffTxt += (diffM < 10 ? '0' : '') + diffM + 'min';
+      if (!diffTxt) diffTxt = '0min';
+      intervalSubEl.textContent = sign + diffTxt + ' vs ~' + fmtHours(histAvgInt) + ' ' + t('vsUsual');
+      // Color: shorter intervals (eating more often) → rose; longer → teal
+      if (diff < -0.4) intervalEl.style.color = 'var(--rose)';
+      else if (diff > 0.4) intervalEl.style.color = 'var(--teal)';
+      else intervalEl.style.color = 'var(--cream)';
+    } else {
+      intervalSubEl.textContent = t('noReference');
+    }
+  } else {
+    intervalEl.textContent = '—';
+    intervalSubEl.textContent = tStats.feeds.length === 1 ? t('needSecondFeed') : t('noReference');
+  }
+
+  // Bedtime avg ml
+  const bedtimeAvgStat = computeBedtimeAvgMl(asOfDay);
+  const bedtimeEl = document.getElementById('bedtimeStat');
+  const bedtimeSubEl = document.getElementById('bedtimeStatSub');
+  if (bedtimeAvgStat > 0) {
+    bedtimeEl.innerHTML = Math.round(bedtimeAvgStat) + '<span class="unit">ml</span>';
+    // Today's accumulated until now (only "pre-bed" feeds, i.e. between 08:00 and 24:00)
+    const preBedToday = tStats.preBed;
+    const delta = preBedToday - bedtimeAvgStat;
+    if (preBedToday === 0) {
+      bedtimeSubEl.textContent = t('bedtimeTarget');
+    } else if (delta >= 0) {
+      bedtimeSubEl.innerHTML = '<span style="color: var(--teal);">+' + Math.round(delta) + ' ml avui ja</span>';
+    } else {
+      bedtimeSubEl.innerHTML = 'falten ' + Math.round(-delta) + ' ml';
+    }
+  } else {
+    bedtimeEl.innerHTML = '—<span class="unit">ml</span>';
+    bedtimeSubEl.textContent = t('noHistory');
+  }
+
+  // Narrative
+  const narrEl = document.getElementById('goalNarrative');
+  if (hist.days === 0) {
+    narrEl.innerHTML = L('Encara no hi ha històric per calcular un objectiu. Registra almenys un dia complet.',
+                         'No history yet to compute a goal. Record at least one full day.');
+  } else if (!isToday) {
+    // Past day: simple summary
+    let narrative = '';
+    if (current >= goalTarget * 1.1) {
+      narrative = L('Aquell dia va menjar <strong>més del normal</strong> (' + current + ' ml vs ~' + goalTarget + ' habituals).',
+                    'That day she ate <strong>more than usual</strong> (' + current + ' ml vs ~' + goalTarget + ' usual).');
+    } else if (current >= goalTarget * 0.95) {
+      narrative = L('Aquell dia va menjar <span class="neutral">al nivell habitual</span> (' + current + ' ml).',
+                    'That day she ate <span class="neutral">at the usual level</span> (' + current + ' ml).');
+    } else {
+      narrative = L('Aquell dia va menjar <span class="below">menys del normal</span> (' + current + ' ml vs ~' + goalTarget + ' habituals).',
+                    'That day she ate <span class="below">less than usual</span> (' + current + ' ml vs ~' + goalTarget + ' usual).');
+    }
+    narrEl.innerHTML = narrative;
+  } else {
+    let narrative = '';
+    const feedsToGo = avgFeedHist > 0 ? Math.ceil(remaining / avgFeedHist) : 0;
+    const paceDeltaNow = current - expectedMl;
+    if (current >= goalTarget) {
+      narrative = L('Ja ha arribat al volum diari habitual (<span class="neutral">' + goalTarget + ' ml</span>). ',
+                    'Already reached the usual daily volume (<span class="neutral">' + goalTarget + ' ml</span>). ');
+      if (current >= goalTarget * 1.1) narrative += L('Avui menja <strong>més del normal</strong>.', 'Eating <strong>more than usual</strong> today.');
+      else narrative += L('Volum diari complet.', 'Daily volume complete.');
+    } else if (paceDeltaNow > 30) {
+      narrative = L('Va <strong>per davant del ritme habitual</strong> (' + current + ' ml vs ~' + expectedMl + ' esperats a aquesta hora). ',
+                    '<strong>Ahead of the usual pace</strong> (' + current + ' ml vs ~' + expectedMl + ' expected by now). ');
+      narrative += L('Li queden <strong>' + remaining + ' ml</strong>, uns ~' + feedsToGo + ' preses fins a tancar les 24h.',
+                     '<strong>' + remaining + ' ml</strong> left, about ~' + feedsToGo + ' feeds to close the 24h.');
+    } else if (paceDeltaNow < -30) {
+      narrative = L('Va <span class="below">per sota del ritme</span> (' + current + ' ml vs ~' + expectedMl + ' esperats). ',
+                    '<span class="below">Below pace</span> (' + current + ' ml vs ~' + expectedMl + ' expected). ');
+      narrative += L('Li queden <strong>' + remaining + ' ml</strong> per arribar a la mitjana, uns ~' + feedsToGo + ' preses de ' + avgFeedHist + ' ml.',
+                     '<strong>' + remaining + ' ml</strong> left to reach the average, about ~' + feedsToGo + ' feeds of ' + avgFeedHist + ' ml.');
+    } else {
+      narrative = L('Va <span class="neutral">al ritme habitual</span>. ', '<span class="neutral">On the usual pace</span>. ');
+      narrative += L('Li queden <strong>' + remaining + ' ml</strong> (~' + feedsToGo + ' preses) per arribar a la mitjana de ' + goalTarget + ' ml.',
+                     '<strong>' + remaining + ' ml</strong> left (~' + feedsToGo + ' feeds) to reach the ' + goalTarget + ' ml average.');
+    }
+    narrEl.innerHTML = narrative;
+  }
+
+  // ===== Night forecast (hero) - or actual result if past day =====
+  document.getElementById('heroLabel').textContent = isToday ? L('☾ Pronòstic de la nit', '☾ Night forecast') : L('☾ Com va anar la nit', '☾ How the night went');
+  document.getElementById('heroRightBlock').style.display = isToday ? '' : 'none';
+  if (isToday) {
+    renderForecast(tStats, hist, Math.round(hist.avgPreBed) || 650, asOfDay);
+  } else {
+    renderPastDayResult(tStats, dayKey);
+  }
+
+  // ===== Entry card visibility (only when viewing today) =====
+  document.getElementById('entryCard').style.display = isToday ? 'block' : 'none';
+
+  // ===== Feed list =====
+  document.getElementById('feedListTitle').textContent = isToday ? t('bottlesToday') : t('bottlesThatDay');
+  const listEl = document.getElementById('todayList');
+  if (tStats.feeds.length === 0) {
+    const emptyMsg = isToday ? t('noBottlesToday') : t('noBottlesThatDay');
+    listEl.innerHTML = '<li style="text-align: center; color: var(--text-dim); padding: 24px;">' + emptyMsg + '</li>';
+  } else {
+    listEl.innerHTML = '';
+    let cum = 0;
+    tStats.feeds.forEach((f, i) => {
+      // Interval since previous feed
+      if (i > 0) {
+        const prev = tStats.feeds[i - 1];
+        let prevMin = timeToMinutes(prev.time);
+        let curMin = timeToMinutes(f.time);
+        if (isBeforeDayStart(prev.time)) prevMin += 24 * 60;
+        if (isBeforeDayStart(f.time)) curMin += 24 * 60;
+        const diffMin = curMin - prevMin;
+        const h = Math.floor(diffMin / 60);
+        const m = Math.round(diffMin % 60);
+        const txt = (h > 0 ? h + 'h ' : '') + (m > 0 ? m + ' min' : '').trim();
+        let cls = '';
+        if (diffMin >= 4.5 * 60) cls = 'long';
+        else if (diffMin < 2 * 60) cls = 'short';
+        const intvLi = document.createElement('li');
+        intvLi.className = 'feed-interval ' + cls;
+        intvLi.innerHTML = '↕ ' + (txt || '0 min');
+        listEl.appendChild(intvLi);
+      }
+      cum += f.qty;
+      const iconClass = isNightTime(f.time) ? '' : 'sun';
+      const iconChar = isNightTime(f.time) ? '☾' : '☀';
+      const globalIdx = feeds.findIndex(x => x.date === f.date && x.time === f.time && x.qty === f.qty);
+      const cerealBadge = f.cereals > 0 ? '<span class="feed-cereals">🌾 ' + f.cereals + '</span>' : '';
+      const li = document.createElement('li');
+      li.className = 'feed-item';
+      li.innerHTML =
+        '<span class="feed-num">' + (i + 1) + '</span>' +
+        '<div class="feed-info">' +
+          '<span class="feed-time"><span class="icon ' + iconClass + '">' + iconChar + '</span>' + f.time + cerealBadge + '</span>' +
+          '<span class="feed-cum">' + cum + ' ml acumulat</span>' +
+        '</div>' +
+        '<span class="feed-qty">' + f.qty + '<span class="unit">ml</span></span>' +
+        '<button class="feed-del" data-idx="' + globalIdx + '" aria-label="Esborrar">×</button>';
+      listEl.appendChild(li);
+    });
+    listEl.querySelectorAll('.feed-del').forEach(btn => {
+      btn.addEventListener('click', () => deleteFeed(parseInt(btn.dataset.idx, 10)));
+    });
+  }
+}
+
+function renderForecast(tStats, hist, goal, asOfDay) {
+  const closing = getClosingFeed(tStats.feeds);
+  const mainEl = document.getElementById('forecastMain');
+  const subEl = document.getElementById('forecastSub');
+  const dots = document.querySelectorAll('#confDots .confidence-dot');
+  const confLabel = document.getElementById('confLabel');
+
+  dots.forEach(d => d.classList.remove('on'));
+
+  if (hist.days < 2) {
+    mainEl.innerHTML = '<span style="font-size: 24px;">' + L('Calen més dies', 'Need more days') + '</span>';
+    subEl.innerHTML = L('Cal almenys <strong>2 dies complets</strong> registrats per fer pronòstic. Ara n\'hi ha ' + hist.days + '.',
+                        'Need at least <strong>2 full days</strong> recorded to forecast. Currently ' + hist.days + '.');
+    confLabel.textContent = L('sense dades', 'no data');
+    return;
+  }
+
+  if (!closing) {
+    // No closing feed yet today — predict based on average
+    const avgClosingMin = (function() {
+      const keys = getCompletedDayKeysAsOf(asOfDay);
+      let sum = 0, n = 0;
+      keys.forEach(k => {
+        const c = getClosingFeed(groupByLogicalDay()[k]);
+        if (c) { sum += timeToMinutes(c.time); n++; }
+      });
+      return n ? sum / n : 22 * 60;
+    })();
+    const avgClosingCereals = (function() {
+      const keys = getCompletedDayKeysAsOf(asOfDay).slice(-7);
+      let sum = 0, n = 0;
+      keys.forEach(k => {
+        const c = getClosingFeed(groupByLogicalDay()[k]);
+        if (c) { sum += (c.cereals || 0); n++; }
+      });
+      return n ? sum / n : 0;
+    })();
+    const pred = predictWakeUp(tStats.preBed, avgClosingMin, avgClosingCereals, asOfDay);
+    if (!pred || pred.kind === 'no-wake') {
+      mainEl.innerHTML = '<span style="font-size: 28px;">' + L('Sense dades de despertar', 'No wakeup data') + '</span>';
+      subEl.innerHTML = L('En els dies complets registrats no he detectat preses nocturnes per estimar.',
+                          'No night feeds detected in the recorded full days to estimate from.');
+      return;
+    }
+    const wakeStr = minToTimeStr(pred.wakeMinAbsolute);
+    mainEl.innerHTML = '~<span class="accent">' + wakeStr + '</span>';
+    subEl.innerHTML = L('Estimació provisional (sense última presa encara). Es refinarà quan registris la presa de tancament.',
+                        'Provisional estimate (no closing feed yet). It will refine once you log the closing feed.');
+    for (let i = 0; i < Math.min(pred.confidence, 5); i++) dots[i].classList.add('on');
+    confLabel.textContent = pred.confidence + '/5';
+    return;
+  }
+
+  // We have a closing feed
+  const closingMin = timeToMinutes(closing.time);
+  const closingCereals = closing.cereals || 0;
+  const pred = predictWakeUp(tStats.preBed, closingMin, closingCereals, asOfDay);
+
+  if (!pred || pred.kind === 'no-wake') {
+    mainEl.innerHTML = '<span style="font-size: 26px;">' + L('Sense dades suficients', 'Not enough data') + '</span>';
+    subEl.innerHTML = L('Encara no hi ha històric de despertars nocturns per fer una previsió.',
+                        'No history of night wakeups yet to make a forecast.');
+    return;
+  }
+
+  const wakeStr = minToTimeStr(pred.wakeMinAbsolute);
+  const std = Math.round(pred.stdDev);
+  const lowerStr = minToTimeStr(pred.wakeMinAbsolute - pred.stdDev);
+  const upperStr = minToTimeStr(pred.wakeMinAbsolute + pred.stdDev);
+  const fastingH = pred.fastingHours.toFixed(1);
+
+  mainEl.innerHTML = '~<span class="accent">' + wakeStr + '</span>';
+
+  // Compose narrative
+  const cerealText = closingCereals > 0 ? L(' + ' + closingCereals + ' cull. cereals', ' + ' + closingCereals + ' spoons cereal') : '';
+  let narrative = L('Després de l\'última presa (' + closing.time + ' · ' + closing.qty + ' ml' + cerealText + '), basant-me en els últims 7 dies: ',
+                    'After the last feed (' + closing.time + ' · ' + closing.qty + ' ml' + cerealText + '), based on the last 7 days: ');
+  narrative += L('<strong>despertar probable entre ' + lowerStr + ' i ' + upperStr + '</strong> ',
+                 '<strong>likely wakeup between ' + lowerStr + ' and ' + upperStr + '</strong> ');
+  narrative += L('(~' + fastingH + 'h d\'autonomia). ', '(~' + fastingH + 'h of autonomy). ');
+
+  // Compare to 8:00 ideal
+  const idealWakeMin = 8 * 60 + 24 * 60; // 08:00 next day = 32:00
+  const diffMin = idealWakeMin - pred.wakeMinAbsolute;
+  if (diffMin > 60) {
+    narrative += L('Es despertarà <strong>' + Math.round(diffMin / 60 * 10) / 10 + 'h abans</strong> de l\'objectiu de les 8h.',
+                   'She\'ll wake <strong>' + Math.round(diffMin / 60 * 10) / 10 + 'h before</strong> the 8am target.');
+  } else if (diffMin > 0) {
+    narrative += L('Faltarà només ~' + Math.round(diffMin) + ' min per a les 8h ideals.',
+                   'Only ~' + Math.round(diffMin) + ' min short of the ideal 8am.');
+  } else {
+    narrative += L('Possible nit completa fins a les 8h! 🌅', 'Possible full night until 8am! 🌅');
+  }
+
+  subEl.innerHTML = narrative;
+
+  for (let i = 0; i < Math.min(pred.confidence, 5); i++) dots[i].classList.add('on');
+  let label = '';
+  if (pred.confidence >= 4) label = L('alta', 'high');
+  else if (pred.confidence >= 3) label = L('mitjana', 'medium');
+  else label = L('baixa', 'low');
+  confLabel.textContent = label + ' · ' + pred.confidence + '/5';
+}
+
+// ============== Render: Patterns ==============
+function renderPastDayResult(tStats, dayKey) {
+  const mainEl = document.getElementById('forecastMain');
+  const subEl = document.getElementById('forecastSub');
+  const dots = document.querySelectorAll('#confDots .confidence-dot');
+  const confLabel = document.getElementById('confLabel');
+
+  dots.forEach(d => d.classList.remove('on'));
+  confLabel.textContent = L('realitat', 'actual');
+
+  const wake = getWakeUpFeed(tStats.feeds);
+  const closing = getClosingFeed(tStats.feeds);
+
+  if (wake) {
+    mainEl.innerHTML = '<span class="accent">' + wake.time + '</span>';
+    let narrative = '';
+    if (closing) {
+      // Calculate fasting hours
+      let closingMin = timeToMinutes(closing.time);
+      let wakeMin = timeToMinutes(wake.time);
+      if (isBeforeDayStart(wake.time)) wakeMin += 24 * 60;
+      if (isBeforeDayStart(closing.time)) closingMin += 24 * 60;
+      const fastingH = (wakeMin - closingMin) / 60;
+      narrative = L('Última presa: <strong>' + closing.time + ' · ' + closing.qty + ' ml</strong>. ',
+                    'Last feed: <strong>' + closing.time + ' · ' + closing.qty + ' ml</strong>. ');
+      narrative += L('Va dormir <strong>' + fastingH.toFixed(1) + 'h</strong> abans de despertar-se a les <strong>' + wake.time + ' (' + wake.qty + ' ml)</strong>.',
+                     'Slept <strong>' + fastingH.toFixed(1) + 'h</strong> before waking at <strong>' + wake.time + ' (' + wake.qty + ' ml)</strong>.');
+    } else {
+      narrative = L('Es va despertar a les <strong>' + wake.time + '</strong> (' + wake.qty + ' ml).',
+                    'Woke at <strong>' + wake.time + '</strong> (' + wake.qty + ' ml).');
+    }
+    subEl.innerHTML = narrative;
+  } else if (closing) {
+    mainEl.innerHTML = '<span style="font-size: 28px;">' + L('Sense despertar registrat', 'No wakeup recorded') + '</span>';
+    subEl.innerHTML = L('Última presa: <strong>' + closing.time + ' · ' + closing.qty + ' ml</strong>. No hi ha cap presa nocturna registrada per aquest dia.',
+                        'Last feed: <strong>' + closing.time + ' · ' + closing.qty + ' ml</strong>. No night feed recorded for this day.');
+  } else {
+    mainEl.innerHTML = '<span style="font-size: 28px;">' + L('Sense dades', 'No data') + '</span>';
+    subEl.innerHTML = L('No hi ha preses registrades aquell dia.', 'No feeds recorded that day.');
+  }
+}
+
+function renderPatterns() {
+  // Update period buttons UI
+  document.querySelectorAll('.period-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.period, 10) === currentPeriod);
+  });
+  const periodLabel = currentPeriod === 7 ? L('setmana', 'week') : currentPeriod === 14 ? L('quinzena', 'fortnight') : L('mes', 'month');
+  const lastLabel = (n) => L('últim' + (n === 7 ? 'a ' : ' ') + periodLabel, 'last ' + periodLabel);
+  const periodN = currentPeriod;
+  document.getElementById('evolutionTitle').textContent = currentPeriod === 7 ? t('evolutionWeekly') : currentPeriod === 14 ? t('evolutionFortnightly') : t('evolutionMonthly');
+  document.getElementById('evolutionSubtitle').textContent =
+    currentPeriod === 7 ? L('Cada barra és una setmana. Veuràs com evoluciona el volum total, el son i els despertars.', 'Each bar is a week. See how total volume, sleep and wakeups evolve.')
+    : currentPeriod === 14 ? L('Cada barra és una quinzena. Veuràs com evoluciona el volum total, el son i els despertars.', 'Each bar is a fortnight. See how total volume, sleep and wakeups evolve.')
+    : L('Cada barra és un mes. Veuràs com evoluciona el volum total, el son i els despertars.', 'Each bar is a month. See how total volume, sleep and wakeups evolve.');
+
+  // Stats based on currentPeriod
+  const hist = periodAverages(periodN);
+  document.getElementById('avgDay').innerHTML = (hist.avgTotal ? Math.round(hist.avgTotal) : '—') + '<span class="unit">ml</span>';
+  document.getElementById('avgDaySub').textContent = hist.days === 0 ? L('sense dades', 'no data') : lastLabel(periodN);
+  document.getElementById('avgFeed').innerHTML = (hist.avgPerFeed ? Math.round(hist.avgPerFeed) : '—') + '<span class="unit">ml</span>';
+  document.getElementById('avgCount').textContent = hist.avgCount ? hist.avgCount.toFixed(1) : '—';
+  document.getElementById('avgNight').innerHTML = (hist.avgNight ? Math.round(hist.avgNight) : '—') + '<span class="unit">ml</span>';
+
+  // Evolution chart
+  renderEvolutionChart();
+
+  // Hour bands (always based on currentPeriod)
+  const bands = hourBandStats(periodN);
+  const maxPerDay = Math.max(...bands.map(b => b.perDay), 1);
+  const container = document.getElementById('hourBands');
+  container.innerHTML = '';
+  bands.forEach(b => {
+    const pct = (b.perDay / maxPerDay) * 100;
+    const hourLabel = pad(b.start) + 'h–' + (b.end === 24 ? '00' : pad(b.end)) + 'h';
+    const hasFeeds = b.perDay > 0;
+    const completedKeysInWindow = getCompletedDayKeys().slice(-periodN);
+    const row = document.createElement('div');
+    row.className = 'band-row';
+    row.innerHTML =
+      '<span class="band-time"><span class="icon">' + b.icon + '</span>' + L(b.label, b.labelEn || b.label) + ' <span style="color: var(--text-dim); font-size: 10px; font-weight: 400;">' + hourLabel + '</span></span>' +
+      '<div class="band-bar-wrap"><div class="band-bar ' + (hasFeeds ? '' : 'empty') + '" style="width: ' + pct + '%"></div></div>' +
+      '<span class="band-val">' + (hasFeeds ? Math.round(b.perDay) + '<span class="unit" style="font-size: 10px; color: var(--text-dim); font-weight: 500;"> ml</span>' : '—') +
+      '<span class="small">' + (b.feeds.length ? (b.feeds.length / Math.max(1, completedKeysInWindow.length)).toFixed(1) + L(' preses/dia', ' feeds/day') : '—') + '</span></span>';
+    container.appendChild(row);
+  });
+
+  // Sleep patterns
+  const sleepHist = sleepPeriodAverages(periodN);
+  const tEl = document.getElementById('sleepPatternTotal');
+  const nEl = document.getElementById('sleepPatternNight');
+  const ncEl = document.getElementById('sleepPatternNapsCount');
+  const ndEl = document.getElementById('sleepPatternNapDuration');
+  if (sleepHist.days > 0) {
+    tEl.textContent = fmtDuration(Math.round(sleepHist.totalMin));
+    nEl.textContent = sleepHist.nightMin > 0 ? fmtDuration(Math.round(sleepHist.nightMin)) : '—';
+    ncEl.textContent = sleepHist.napCount.toFixed(1);
+    ndEl.textContent = sleepHist.napDurationMin > 0 ? fmtDuration(Math.round(sleepHist.napDurationMin)) : '—';
+    document.getElementById('sleepPatternTotalSub').textContent = lastLabel(periodN) + ' (' + sleepHist.days + L(' dies)', ' days)');
+  } else {
+    tEl.textContent = '—';
+    nEl.textContent = '—';
+    ncEl.textContent = '—';
+    ndEl.textContent = '—';
+    document.getElementById('sleepPatternTotalSub').textContent = L('sense dades de son', 'no sleep data');
+  }
+
+  // Wakeups and fasting (computed from feeds, not sleep entries) — uses currentPeriod
+  const completedKeys = getCompletedDayKeys();
+  const recentKeys = completedKeys.slice(-periodN);
+  const wEl = document.getElementById('sleepPatternWakeups');
+  const wSubEl = document.getElementById('sleepPatternWakeupsSub');
+  const fEl = document.getElementById('sleepPatternFasting');
+  if (recentKeys.length > 0) {
+    const wakeCounts = recentKeys.map(k => getWakeUpFeeds(groupByLogicalDay()[k] || []).length);
+    const avgWake = wakeCounts.reduce((a, b) => a + b, 0) / wakeCounts.length;
+    wEl.textContent = avgWake.toFixed(1);
+    wSubEl.textContent = lastLabel(periodN);
+
+    const fastings = [];
+    recentKeys.forEach(k => {
+      const dayFeeds = groupByLogicalDay()[k] || [];
+      const closing = getClosingFeed(dayFeeds);
+      const wake = getWakeUpFeed(dayFeeds);
+      if (closing && wake) {
+        let cm = timeToMinutes(closing.time);
+        let wm = timeToMinutes(wake.time);
+        if (isBeforeDayStart(closing.time)) cm += 24 * 60;
+        if (isBeforeDayStart(wake.time)) wm += 24 * 60;
+        if (wm > cm) fastings.push((wm - cm) / 60);
+      }
+    });
+    if (fastings.length > 0) {
+      const avgFast = fastings.reduce((a, b) => a + b, 0) / fastings.length;
+      const fh = Math.floor(avgFast);
+      const fm = Math.round((avgFast - fh) * 60);
+      fEl.textContent = fh + 'h' + (fm < 10 ? '0' : '') + fm;
+    } else {
+      fEl.textContent = '—';
+    }
+  } else {
+    wEl.textContent = '—';
+    fEl.textContent = '—';
+  }
+
+  // Insights
+  renderInsights();
+}
+
+function renderEvolutionChart() {
+  const container = document.getElementById('evolutionChart');
+  const periodN = currentPeriod;
+  const completedKeys = getCompletedDayKeys();
+  if (completedKeys.length === 0) {
+    container.innerHTML = '<p style="font-size: 13px; color: var(--text-dim); padding: 10px 0;">' + L('Sense dades suficients per veure evolució.', 'Not enough data to show evolution.') + '</p>';
+    return;
+  }
+
+  // Build N blocks of `periodN` days each, going back from today
+  const today = todayISO();
+  const todayDate = new Date(today + 'T12:00:00');
+  // Show last 8 blocks max (or fewer if not enough data)
+  const maxBlocks = 8;
+  const blocks = [];
+  for (let i = 0; i < maxBlocks; i++) {
+    const endDate = new Date(todayDate);
+    endDate.setDate(endDate.getDate() - 1 - i * periodN);
+    const startDate = new Date(endDate);
+    startDate.setDate(startDate.getDate() - (periodN - 1));
+    const startISO = startDate.getFullYear() + '-' + pad(startDate.getMonth() + 1) + '-' + pad(startDate.getDate());
+    const endISO = endDate.getFullYear() + '-' + pad(endDate.getMonth() + 1) + '-' + pad(endDate.getDate());
+    const blockKeys = completedKeys.filter(k => k >= startISO && k <= endISO);
+    if (blockKeys.length === 0) continue;
+    let totalSum = 0, totalCount = 0;
+    let nightSleepSum = 0, nightSleepCount = 0;
+    let wakeupSum = 0;
+    blockKeys.forEach(k => {
+      const s = dayStats(k);
+      totalSum += s.total;
+      totalCount++;
+      wakeupSum += getWakeUpFeeds(groupByLogicalDay()[k] || []).length;
+      // Sleep night minutes
+      const sleepStats = sleepDayStats(k);
+      if (sleepStats.nightMin > 0) {
+        nightSleepSum += sleepStats.nightMin;
+        nightSleepCount++;
+      }
+    });
+    blocks.push({
+      startISO, endISO,
+      label: formatDate(startISO) + '–' + formatDate(endISO),
+      avgTotal: totalCount > 0 ? totalSum / totalCount : 0,
+      avgNightSleep: nightSleepCount > 0 ? nightSleepSum / nightSleepCount : 0,
+      avgWakeups: totalCount > 0 ? wakeupSum / totalCount : 0,
+      days: blockKeys.length,
+    });
+  }
+
+  if (blocks.length === 0) {
+    container.innerHTML = '<p style="font-size: 13px; color: var(--text-dim); padding: 10px 0;">' + L('Sense dades suficients.', 'Not enough data.') + '</p>';
+    return;
+  }
+
+  // Reverse so oldest is left, newest right
+  blocks.reverse();
+
+  // Compute deltas (latest vs previous)
+  function fmtDelta(cur, prev, suffix, isInverted) {
+    if (prev === 0 || prev === undefined) return '<span class="delta neutral">—</span>';
+    const d = cur - prev;
+    if (Math.abs(d) < 0.01) return '<span class="delta neutral">≈</span>';
+    const sign = d > 0 ? '+' : '';
+    // For wakeups, more = bad (inverted)
+    const isUp = d > 0;
+    const cls = isInverted ? (isUp ? 'down' : 'up') : (isUp ? 'up' : 'down');
+    return '<span class="delta ' + cls + '">' + sign + Math.round(d) + suffix + '</span>';
+  }
+
+  // Render three series: volume, night sleep, wakeups
+  const maxVol = Math.max(...blocks.map(b => b.avgTotal), 100);
+  const maxSleep = Math.max(...blocks.map(b => b.avgNightSleep), 60);
+  const maxWake = Math.max(...blocks.map(b => b.avgWakeups), 1);
+
+  let html = '';
+
+  // Volume row
+  html += '<div class="evo-section-label">' + L('VOLUM DIARI · ml', 'DAILY VOLUME · ml') + '</div>';
+  html += '<div class="evo-row">';
+  html += '<span class="evo-label">' + blocks[blocks.length - 1].label + '</span>';
+  html += '<div class="evo-bars">';
+  blocks.forEach((b, i) => {
+    const h = Math.max(2, (b.avgTotal / maxVol) * 28);
+    const cls = i === blocks.length - 1 ? 'current' : '';
+    html += '<div class="evo-bar ' + cls + '" style="height: ' + h + 'px" title="' + b.label + ': ' + Math.round(b.avgTotal) + ' ml"></div>';
+  });
+  html += '</div>';
+  const lastBlock = blocks[blocks.length - 1];
+  const prevBlock = blocks.length > 1 ? blocks[blocks.length - 2] : null;
+  html += '<span class="evo-val">' + Math.round(lastBlock.avgTotal) + ' ml';
+  html += fmtDelta(lastBlock.avgTotal, prevBlock ? prevBlock.avgTotal : 0, ' ml', false) + '</span>';
+  html += '</div>';
+
+  // Sleep row (if any data)
+  if (blocks.some(b => b.avgNightSleep > 0)) {
+    html += '<div class="evo-section-label" style="color: var(--sleep);">' + L('SON NOCTURN · h/nit', 'NIGHT SLEEP · h/night') + '</div>';
+    html += '<div class="evo-row">';
+    html += '<span class="evo-label">' + blocks[blocks.length - 1].label + '</span>';
+    html += '<div class="evo-bars">';
+    blocks.forEach((b, i) => {
+      const h = Math.max(2, (b.avgNightSleep / maxSleep) * 28);
+      const cls = (i === blocks.length - 1 ? 'current ' : '') + 'sleep';
+      html += '<div class="evo-bar ' + cls + '" style="height: ' + h + 'px" title="' + b.label + ': ' + fmtDuration(Math.round(b.avgNightSleep)) + '"></div>';
+    });
+    html += '</div>';
+    html += '<span class="evo-val">' + (lastBlock.avgNightSleep > 0 ? fmtDuration(Math.round(lastBlock.avgNightSleep)) : '—');
+    if (prevBlock && prevBlock.avgNightSleep > 0 && lastBlock.avgNightSleep > 0) {
+      const diffMin = Math.round(lastBlock.avgNightSleep - prevBlock.avgNightSleep);
+      const sign = diffMin > 0 ? '+' : '';
+      const cls = Math.abs(diffMin) < 5 ? 'neutral' : (diffMin > 0 ? 'up' : 'down');
+      html += '<span class="delta ' + cls + '">' + sign + diffMin + ' min</span>';
+    }
+    html += '</span>';
+    html += '</div>';
+  }
+
+  // Wakeups row
+  html += '<div class="evo-section-label" style="color: var(--nap);">' + L('DESPERTARS NIT · per nit', 'NIGHT WAKEUPS · per night') + '</div>';
+  html += '<div class="evo-row">';
+  html += '<span class="evo-label">' + blocks[blocks.length - 1].label + '</span>';
+  html += '<div class="evo-bars">';
+  blocks.forEach((b, i) => {
+    const h = Math.max(2, (b.avgWakeups / maxWake) * 28);
+    const cls = (i === blocks.length - 1 ? 'current ' : '') + 'wakeups';
+    html += '<div class="evo-bar ' + cls + '" style="height: ' + h + 'px" title="' + b.label + ': ' + b.avgWakeups.toFixed(1) + ' despertars/nit"></div>';
+  });
+  html += '</div>';
+  html += '<span class="evo-val">' + lastBlock.avgWakeups.toFixed(1);
+  if (prevBlock) {
+    const d = lastBlock.avgWakeups - prevBlock.avgWakeups;
+    if (Math.abs(d) >= 0.1) {
+      const sign = d > 0 ? '+' : '';
+      const cls = d > 0 ? 'down' : 'up'; // more wakeups = bad
+      html += '<span class="delta ' + cls + '">' + sign + d.toFixed(1) + '</span>';
+    } else {
+      html += '<span class="delta neutral">≈</span>';
+    }
+  }
+  html += '</span>';
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function renderInsights() {
+  const hist = historicalAverages();
+  const obs = [];
+
+  if (hist.days >= 1) {
+    obs.push({
+      icon: '01',
+      text: L('Patró habitual: <strong>' + Math.round(hist.avgTotal) + ' ml/dia</strong> en <strong>' + hist.avgCount.toFixed(1) + ' preses</strong> (~' + Math.round(hist.avgPerFeed) + ' ml cadascuna).',
+              'Usual pattern: <strong>' + Math.round(hist.avgTotal) + ' ml/day</strong> over <strong>' + hist.avgCount.toFixed(1) + ' feeds</strong> (~' + Math.round(hist.avgPerFeed) + ' ml each).')
+    });
+    obs.push({
+      icon: '02',
+      text: L('Acumulat habitual <strong>abans de les 00:00</strong>: <strong>' + Math.round(hist.avgPreBed) + ' ml</strong>. És l\'objectiu de cara a la nit.',
+              'Usual accumulated <strong>before 00:00</strong>: <strong>' + Math.round(hist.avgPreBed) + ' ml</strong>. That\'s the target heading into the night.')
+    });
+    if (hist.avgNight > 0) {
+      const nightPct = Math.round((hist.avgNight / hist.avgTotal) * 100);
+      obs.push({
+        icon: '03',
+        text: L('La nit (22h–06h) suposa el <strong>' + nightPct + '%</strong> del volum diari (~' + Math.round(hist.avgNight) + ' ml).',
+                'The night (10pm–6am) accounts for <strong>' + nightPct + '%</strong> of daily volume (~' + Math.round(hist.avgNight) + ' ml).')
+      });
+    }
+  }
+
+  // Best night analysis
+  const keys = getCompletedDayKeys();
+  if (keys.length >= 2) {
+    const dayDetails = keys.map(k => {
+      const dayFeeds = groupByLogicalDay()[k];
+      const wake = getWakeUpFeed(dayFeeds);
+      const closing = getClosingFeed(dayFeeds);
+      const s = dayStats(k);
+      return {
+        key: k,
+        preBed: s.preBed,
+        closingTime: closing ? closing.time : null,
+        wakeTime: wake ? wake.time : null,
+        wakeMin: wake ? timeToMinutes(wake.time) : null,
+      };
+    });
+    // Day with latest wake
+    const wakeDays = dayDetails.filter(d => d.wakeMin !== null);
+    if (wakeDays.length >= 2) {
+      wakeDays.sort((a, b) => b.wakeMin - a.wakeMin);
+      const best = wakeDays[0], worst = wakeDays[wakeDays.length - 1];
+      obs.push({
+        icon: '04',
+        text: L('Millor nit: <strong>' + formatDate(best.key) + '</strong> (despertar a les ' + best.wakeTime + ' amb ' + best.preBed + ' ml + tancament a les ' + best.closingTime + '). Pitjor: <strong>' + formatDate(worst.key) + '</strong> (despertar a les ' + worst.wakeTime + ').',
+                'Best night: <strong>' + formatDate(best.key) + '</strong> (woke at ' + best.wakeTime + ' with ' + best.preBed + ' ml + closing at ' + best.closingTime + '). Worst: <strong>' + formatDate(worst.key) + '</strong> (woke at ' + worst.wakeTime + ').')
+      });
+    }
+  }
+
+  obs.push({
+    icon: '05',
+    text: L('Hora objectiu de despertar: <strong>08:00</strong>. Mira la previsió a la pestanya "Biberons" un cop registrada l\'última presa.',
+            'Target wakeup time: <strong>08:00</strong>. Check the forecast in the "Bottles" tab once the closing feed is logged.')
+  });
+
+  // Sleep observations
+  const sleepHist = sleepHistoricalAverages();
+  if (sleepHist.days >= 3) {
+    obs.push({
+      icon: '06',
+      text: L('Son mitjà dels últims ' + sleepHist.days + ' dies: <strong>' + fmtDuration(Math.round(sleepHist.totalMin)) + '/dia</strong> (' + fmtDuration(Math.round(sleepHist.nightMin)) + ' de nit + ' + sleepHist.napCount.toFixed(1) + ' sietas).',
+              'Average sleep over the last ' + sleepHist.days + ' days: <strong>' + fmtDuration(Math.round(sleepHist.totalMin)) + '/day</strong> (' + fmtDuration(Math.round(sleepHist.nightMin)) + ' night + ' + sleepHist.napCount.toFixed(1) + ' naps).')
+    });
+
+    // Find best night
+    const sleepDays = getSleepDays().filter(d => d < todayISO());
+    const nightSleeps = sleepDays.map(d => ({ day: d, stats: sleepDayStats(d) })).filter(x => x.stats.nightMin > 0);
+    if (nightSleeps.length >= 2) {
+      nightSleeps.sort((a, b) => b.stats.nightMin - a.stats.nightMin);
+      const best = nightSleeps[0];
+      obs.push({
+        icon: '07',
+        text: L('Millor nit registrada: <strong>' + formatDate(best.day) + '</strong> amb <strong>' + fmtDuration(best.stats.nightMin) + '</strong> de son nocturn.',
+                'Best recorded night: <strong>' + formatDate(best.day) + '</strong> with <strong>' + fmtDuration(best.stats.nightMin) + '</strong> of night sleep.')
+      });
+    }
+
+    // Correlation hint: nights with most sleep vs feeds those days
+    const nightsByQuality = [...nightSleeps].sort((a, b) => b.stats.nightMin - a.stats.nightMin);
+    if (nightsByQuality.length >= 4) {
+      const topHalf = nightsByQuality.slice(0, Math.ceil(nightsByQuality.length / 2));
+      const bottomHalf = nightsByQuality.slice(Math.ceil(nightsByQuality.length / 2));
+      const topFeedAvg = topHalf.map(x => dayStats(x.day).preBed).filter(v => v > 0);
+      const bottomFeedAvg = bottomHalf.map(x => dayStats(x.day).preBed).filter(v => v > 0);
+      if (topFeedAvg.length > 0 && bottomFeedAvg.length > 0) {
+        const topAvg = topFeedAvg.reduce((a, b) => a + b, 0) / topFeedAvg.length;
+        const botAvg = bottomFeedAvg.reduce((a, b) => a + b, 0) / bottomFeedAvg.length;
+        const diff = topAvg - botAvg;
+        if (Math.abs(diff) >= 30) {
+          const direction = diff > 0 ? L('més', 'more') : L('menys', 'less');
+          obs.push({
+            icon: '08',
+            text: L('Les nits que dorm més coincideixen amb dies en què menja <strong>' + Math.round(Math.abs(diff)) + ' ml ' + direction + '</strong> abans de dormir (' + Math.round(topAvg) + ' vs ' + Math.round(botAvg) + ' ml).',
+                    'Nights she sleeps more line up with days she eats <strong>' + Math.round(Math.abs(diff)) + ' ml ' + direction + '</strong> before bed (' + Math.round(topAvg) + ' vs ' + Math.round(botAvg) + ' ml).')
+          });
+        }
+      }
+    }
+  }
+
+  const insightsEl = document.getElementById('insights');
+  insightsEl.innerHTML = '';
+  obs.forEach(o => {
+    const div = document.createElement('div');
+    div.className = 'insight';
+    div.innerHTML = '<span class="insight-icon">' + o.icon + '</span><span class="insight-text">' + o.text + '</span>';
+    insightsEl.appendChild(div);
+  });
+}
+
+// ============== Render: History ==============
+function renderHistory() {
+  const groups = groupByLogicalDay();
+  // Show today + any logical day with at least 3 feeds (hides phantom days
+  // that are just a stray nocturnal feed from an unregistered prior day)
+  const today = todayISO();
+  const keys = Object.keys(groups).filter(k => k === today || groups[k].length >= 3).sort();
+  const maxTotal = Math.max(...keys.map(k => dayStats(k).total), 1);
+
+  const container = document.getElementById('dailyTotals');
+  container.innerHTML = '';
+  keys.forEach(k => {
+    const s = dayStats(k);
+    const pct = (s.total / maxTotal) * 100;
+    const isToday = k === today;
+    const wakeups = getWakeUpFeeds(groups[k]);
+    let wakeInfo = '';
+    if (wakeups.length === 0) wakeInfo = '';
+    else if (wakeups.length === 1) wakeInfo = ' · ☾' + wakeups[0].time;
+    else wakeInfo = ' · ☾' + wakeups.length + '×';
+    const row = document.createElement('div');
+    row.className = 'day-row';
+    row.innerHTML =
+      '<span class="day-date">' + formatDate(k) + (isToday ? ' ⋯' : '') + '</span>' +
+      '<div class="day-bar-wrap"><div class="day-bar ' + (isToday ? 'partial' : '') + '" style="width: ' + pct + '%"></div></div>' +
+      '<span class="day-total">' + s.total + '<span class="small">ml · ' + s.count + 'p' + wakeInfo + '</span></span>';
+    container.appendChild(row);
+  });
+
+  // Intervals
+  renderIntervals();
+  // Sleep history
+  renderSleepHistory();
+}
+
+function renderSleepHistory() {
+  const container = document.getElementById('sleepHistoryList');
+  if (!container) return;
+  const today = todayISO();
+  const sleepDays = getSleepDays();
+  if (sleepDays.length === 0) {
+    container.innerHTML = '<p style="font-size: 13px; color: var(--text-dim);">' + t('noSleepRecords') + '</p>';
+    return;
+  }
+  // Get max total for bar scaling
+  const allStats = sleepDays.map(d => sleepDayStats(d));
+  const maxTotal = Math.max(...allStats.map(s => s.total), 60);
+
+  container.innerHTML = '';
+  sleepDays.forEach(d => {
+    const s = sleepDayStats(d);
+    const isToday = d === today;
+    const totalPct = (s.total / maxTotal) * 100;
+    const nightPct = s.total > 0 ? (s.nightMin / s.total) * totalPct : 0;
+    const napPct = s.total > 0 ? (s.napMin / s.total) * totalPct : 0;
+
+    const row = document.createElement('div');
+    row.className = 'day-row';
+    row.innerHTML =
+      '<span class="day-date">' + formatDate(d) + (isToday ? ' ⋯' : '') + '</span>' +
+      '<div class="sleep-history-bar">' +
+        '<div class="night-part" style="width: ' + nightPct + '%"></div>' +
+        '<div class="nap-part" style="width: ' + napPct + '%"></div>' +
+      '</div>' +
+      '<span class="day-total">' + (s.total > 0 ? fmtDuration(s.total) : '—') + '<span class="small">' +
+        (s.nightMin > 0 ? '☾' + fmtDuration(s.nightMin).replace(' ', '') : '') +
+        (s.napMin > 0 ? (s.nightMin > 0 ? ' · ' : '') + '☀' + s.napCount + ' ' + (s.napCount !== 1 ? L('sietas', 'naps') : L('siesta', 'nap')) : '') +
+      '</span></span>';
+    container.appendChild(row);
+  });
+
+  // Summary line: 7-day rolling avg comparison vs all-time
+  const sleepHist = sleepHistoricalAverages();
+  if (sleepHist.days >= 3) {
+    const summary = document.createElement('div');
+    summary.style.cssText = 'margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-family: Fraunces, serif; font-size: 14px; color: var(--cream); line-height: 1.5;';
+    summary.innerHTML = L('Mitjana de son (últims ' + sleepHist.days + ' dies): <strong style="color: var(--accent);">' + fmtDuration(Math.round(sleepHist.totalMin)) + '/dia</strong> · nit ' + fmtDuration(Math.round(sleepHist.nightMin)) + ' · sietas ' + sleepHist.napCount.toFixed(1) + '/dia', 'Average sleep (last ' + sleepHist.days + ' days): <strong style="color: var(--accent);">' + fmtDuration(Math.round(sleepHist.totalMin)) + '/day</strong> · night ' + fmtDuration(Math.round(sleepHist.nightMin)) + ' · naps ' + sleepHist.napCount.toFixed(1) + '/day');
+    container.appendChild(summary);
+  }
+}
+
+function renderIntervals() {
+  const intervalsContainer = document.getElementById('intervalsList');
+  if (!intervalsContainer) return;
+  const data = computeIntervalsPerDay();
+
+  // Also include today (partial)
+  const today = todayISO();
+  const todayFeeds = groupByLogicalDay()[today];
+  if (todayFeeds && todayFeeds.length >= 2) {
+    const intervals = [];
+    for (let i = 1; i < todayFeeds.length; i++) {
+      let prevMin = timeToMinutes(todayFeeds[i - 1].time);
+      let curMin = timeToMinutes(todayFeeds[i].time);
+      if (isBeforeDayStart(todayFeeds[i - 1].time)) prevMin += 24 * 60;
+      if (isBeforeDayStart(todayFeeds[i].time)) curMin += 24 * 60;
+      const diffH = (curMin - prevMin) / 60;
+      if (diffH > 0) intervals.push(diffH);
+    }
+    const avg = intervals.length ? intervals.reduce((a, b) => a + b, 0) / intervals.length : 0;
+    data.push({ day: today, intervals, avgHours: avg, count: todayFeeds.length, partial: true });
+  }
+
+  if (data.length === 0) {
+    intervalsContainer.innerHTML = '<p style="font-size: 13px; color: var(--text-dim);">Falten dades.</p>';
+    return;
+  }
+
+  // Compute historical average interval (completed days only)
+  const completed = data.filter(d => !d.partial);
+  const avgInterval = completed.length
+    ? completed.reduce((s, d) => s + d.avgHours, 0) / completed.length
+    : 0;
+
+  // Range for bar scaling
+  const maxAvg = Math.max(...data.map(d => d.avgHours), 1);
+
+  intervalsContainer.innerHTML = '';
+  data.forEach(d => {
+    const isToday = d.day === today;
+    const h = Math.floor(d.avgHours);
+    const m = Math.round((d.avgHours - h) * 60);
+    const txt = h + 'h ' + (m < 10 ? '0' : '') + m + 'min';
+    const pct = (d.avgHours / maxAvg) * 100;
+
+    // Min/max for the day
+    const min = Math.min(...d.intervals);
+    const max = Math.max(...d.intervals);
+    const minH = Math.floor(min), minM = Math.round((min - minH) * 60);
+    const maxH = Math.floor(max), maxM = Math.round((max - maxH) * 60);
+
+    // Compare to historical avg
+    let trend = '';
+    if (!isToday && avgInterval > 0) {
+      const diff = d.avgHours - avgInterval;
+      if (Math.abs(diff) >= 0.25) {
+        const sign = diff > 0 ? '+' : '';
+        trend = ' ' + sign + diff.toFixed(1) + 'h';
+      }
+    }
+
+    const row = document.createElement('div');
+    row.className = 'day-row';
+    row.innerHTML =
+      '<span class="day-date">' + formatDate(d.day) + (isToday ? ' ⋯' : '') + '</span>' +
+      '<div class="day-bar-wrap"><div class="day-bar ' + (isToday ? 'partial' : '') + '" style="width: ' + pct + '%"></div></div>' +
+      '<span class="day-total">' + txt + '<span class="small">' + minH + 'h' + (minM < 10 ? '0' : '') + minM + ' – ' + maxH + 'h' + (maxM < 10 ? '0' : '') + maxM + trend + '</span></span>';
+    intervalsContainer.appendChild(row);
+  });
+
+  // Summary line at the end
+  if (completed.length >= 2) {
+    const summary = document.createElement('div');
+    summary.style.cssText = 'margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-family: Fraunces, serif; font-size: 14px; color: var(--cream); line-height: 1.5;';
+    const avgH = Math.floor(avgInterval);
+    const avgM = Math.round((avgInterval - avgH) * 60);
+    // Trend: today vs avg
+    const todayData = data.find(d => d.day === today);
+    let trendTxt = '';
+    if (todayData && todayData.avgHours > 0) {
+      const diff = todayData.avgHours - avgInterval;
+      if (diff < -0.4) trendTxt = '<br><span style="color: var(--rose);">' + L('Avui menja <strong>més sovint</strong> de l\'habitual.', 'Eating <strong>more often</strong> than usual today.') + '</span>';
+      else if (diff > 0.4) trendTxt = '<br><span style="color: var(--teal);">' + L('Avui menja <strong>menys sovint</strong> de l\'habitual.', 'Eating <strong>less often</strong> than usual today.') + '</span>';
+      else trendTxt = '<br><span style="color: var(--moon);">' + L('Avui menja al <strong>ritme habitual</strong>.', 'Eating at the <strong>usual rate</strong> today.') + '</span>';
+    }
+    summary.innerHTML = L('Interval mitjà històric: ', 'Historical average interval: ') + '<strong style="color: var(--accent);">' + avgH + 'h ' + (avgM < 10 ? '0' : '') + avgM + 'min</strong>' + trendTxt;
+    intervalsContainer.appendChild(summary);
+  }
+}
+
+function render() {
+  renderToday();
+  renderSleep();
+  renderPatterns();
+  renderHistory();
+  wireMetricCards();
+  refreshOpenChart();
+}
+
+// If a metric chart is open, re-render it (e.g. after data change or language switch)
+function refreshOpenChart() {
+  if (!openChartMetric) return;
+  const openStat = document.querySelector('.stat.chart-open[data-metric="' + openChartMetric + '"]');
+  if (openStat) {
+    let chartDiv = openStat.querySelector('.metric-chart');
+    if (!chartDiv) {
+      chartDiv = document.createElement('div');
+      chartDiv.className = 'metric-chart';
+      openStat.appendChild(chartDiv);
+    }
+    renderMetricChart(chartDiv, openChartMetric);
+  }
+}
+
+// ============== Export / Import ==============
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const payload = {
+    version: 2,
+    exportedAt: new Date().toISOString(),
+    app: 'gala-tracker',
+    feeds: sortFeeds(feeds),
+    sleeps: [...sleeps],
+    activeSleep: activeSleep || null,
+  };
+  const json = JSON.stringify(payload, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'gala_dades_' + todayISO() + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(t('dataExported'));
+});
+
+document.getElementById('importBtn').addEventListener('click', () => {
+  document.getElementById('importInput').click();
+});
+
+document.getElementById('importInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const text = ev.target.result.trim();
+      const fname = (file.name || '').toLowerCase();
+
+      // Try JSON first (also handles old CSV by falling through)
+      if (text.startsWith('{') || fname.endsWith('.json')) {
+        const data = JSON.parse(text);
+        const importedFeeds = Array.isArray(data.feeds) ? data.feeds.filter(f => f && f.date && f.time && typeof f.qty === 'number') : [];
+        const importedSleeps = Array.isArray(data.sleeps) ? data.sleeps.filter(s => s && s.id && s.type && s.startDate && s.startTime && s.endDate && s.endTime) : [];
+        const importedActive = data.activeSleep && data.activeSleep.id ? data.activeSleep : null;
+        if (importedFeeds.length === 0 && importedSleeps.length === 0) {
+          alert('El fitxer no conté dades vàlides.');
+          return;
+        }
+        const summary = importedFeeds.length + ' biberons i ' + importedSleeps.length + ' sons';
+        if (!confirm('Importar ' + summary + '? (substituirà TOTES les dades actuals)')) return;
+        feeds = importedFeeds;
+        sleeps = importedSleeps;
+        activeSleep = importedActive;
+        saveFeeds();
+        saveSleeps();
+        render();
+        showToast(summary + ' importats ✓');
+        return;
+      }
+
+      // CSV fallback (legacy format: date,time,qty[,cereals])
+      const lines = text.split(/\r?\n/);
+      const imported = [];
+      const header = (lines[0] || '').toLowerCase();
+      const hasCereals = header.includes('cereal');
+      for (let i = 1; i < lines.length; i++) {
+        const parts = lines[i].split(',');
+        const [date, time, qty, cereals] = parts;
+        if (date && time && qty) {
+          const feed = { date: date.trim(), time: time.trim(), qty: parseInt(qty, 10) };
+          if (hasCereals && cereals) {
+            const c = parseInt(cereals, 10);
+            if (c > 0) feed.cereals = c;
+          }
+          imported.push(feed);
+        }
+      }
+      if (imported.length > 0 && confirm('Importar ' + imported.length + ' biberons des de CSV? (substituirà els biberons actuals, els sons es mantenen)')) {
+        feeds = imported;
+        saveFeeds();
+        render();
+        showToast(imported.length + ' biberons importats ✓');
+      }
+    } catch (err) {
+      alert('Error llegint el fitxer: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (confirm(t('confirmClear'))) {
+    feeds = [];
+    sleeps = [];
+    activeSleep = null;
+    saveFeeds();
+    saveSleeps();
+    render();
+    showToast(t('allDeleted'));
+  }
+});
+
+// ============== Sleep handlers ==============
+function genSleepId() {
+  return 'sl_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+}
+
+function startSleep(type) {
+  if (activeSleep) {
+    showToast(t('alreadyActive'));
+    return;
+  }
+  const now = new Date();
+  activeSleep = {
+    id: genSleepId(),
+    type,
+    startDate: realTodayISO(),
+    startTime: pad(now.getHours()) + ':' + pad(now.getMinutes()),
+  };
+  saveSleeps();
+  viewedSleepDay = null;
+  showToast(type === 'nap' ? t('napStarted') : t('nightStarted'));
+  render();
+}
+
+function endActiveSleep() {
+  if (!activeSleep) return;
+  const now = new Date();
+  const endDate = realTodayISO();
+  const endTime = pad(now.getHours()) + ':' + pad(now.getMinutes());
+  sleeps.push({
+    id: activeSleep.id,
+    type: activeSleep.type,
+    startDate: activeSleep.startDate,
+    startTime: activeSleep.startTime,
+    endDate,
+    endTime,
+  });
+  activeSleep = null;
+  saveSleeps();
+  viewedSleepDay = null;
+  showToast(t('sleepRecorded'));
+  render();
+}
+
+function deleteSleep(id) {
+  if (!confirm(t('deleteSleepConfirm'))) return;
+  sleeps = sleeps.filter(s => s.id !== id);
+  saveSleeps();
+  render();
+}
+
+// Sleep duration in minutes (handles cross-midnight)
+function sleepDurationMin(s) {
+  const startMs = new Date(s.startDate + 'T' + s.startTime + ':00').getTime();
+  const endMs = new Date(s.endDate + 'T' + s.endTime + ':00').getTime();
+  return Math.max(0, Math.round((endMs - startMs) / 60000));
+}
+
+function fmtDuration(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  if (h === 0) return m + ' min';
+  if (m === 0) return h + 'h';
+  return h + 'h ' + (m < 10 ? '0' : '') + m;
+}
+
+// Get sleeps belonging to a logical day (starts at 08:00).
+// A sleep belongs to a logical day if its start time falls within that 08:00-08:00 window.
+function getSleepsForDay(dayKey) {
+  return sleeps.filter(s => {
+    // Compute logical day of the sleep's start
+    const startHour = parseInt(s.startTime.split(':')[0], 10);
+    let ld = s.startDate;
+    if (startHour < DAY_START_HOUR) {
+      const d = new Date(s.startDate + 'T12:00:00');
+      d.setDate(d.getDate() - 1);
+      ld = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+    return ld === dayKey;
+  });
+}
+
+// All logical days that have sleeps recorded
+function getSleepDays() {
+  const set = new Set();
+  sleeps.forEach(s => {
+    const startHour = parseInt(s.startTime.split(':')[0], 10);
+    let ld = s.startDate;
+    if (startHour < DAY_START_HOUR) {
+      const d = new Date(s.startDate + 'T12:00:00');
+      d.setDate(d.getDate() - 1);
+      ld = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+    set.add(ld);
+  });
+  return Array.from(set).sort();
+}
+
+// Day-level sleep stats: total min, night min, nap count, nap total min
+function sleepDayStats(dayKey) {
+  const dSleeps = getSleepsForDay(dayKey);
+  const naps = dSleeps.filter(s => s.type === 'nap');
+  const nights = dSleeps.filter(s => s.type === 'night');
+  const napMin = naps.reduce((a, s) => a + sleepDurationMin(s), 0);
+  const nightMin = nights.reduce((a, s) => a + sleepDurationMin(s), 0);
+  return {
+    total: napMin + nightMin,
+    napMin, nightMin,
+    napCount: naps.length,
+    nightCount: nights.length,
+  };
+}
+
+// Rolling sleep averages (only days with sleeps recorded)
+function sleepHistoricalAverages() {
+  return sleepPeriodAverages(7);
+}
+
+function sleepPeriodAverages(windowDays) {
+  const today = todayISO();
+  const allSleepDays = getSleepDays().filter(d => d < today);
+  const recent = allSleepDays.slice(-windowDays);
+  if (recent.length === 0) return { totalMin: 0, nightMin: 0, napCount: 0, napDurationMin: 0, days: 0 };
+  let totalSum = 0, nightSum = 0, napCountSum = 0, napTotalMin = 0, napTotalCount = 0;
+  recent.forEach(d => {
+    const s = sleepDayStats(d);
+    totalSum += s.total;
+    nightSum += s.nightMin;
+    napCountSum += s.napCount;
+    napTotalMin += s.napMin;
+    napTotalCount += s.napCount;
+  });
+  return {
+    totalMin: totalSum / recent.length,
+    nightMin: nightSum / recent.length,
+    napCount: napCountSum / recent.length,
+    napDurationMin: napTotalCount > 0 ? napTotalMin / napTotalCount : 0,
+    days: recent.length,
+  };
+}
+
+// Render the sleep tab
+function renderSleep() {
+  const today = todayISO();
+  const viewKey = viewedSleepDay || today;
+  const isToday = viewKey === today;
+
+  // Update day nav UI
+  updateSleepDayNav(viewKey, today);
+
+  // Active sleep banner (only visible when viewing today)
+  const activeBanner = document.getElementById('activeSleep');
+  const quickCard = document.getElementById('sleepQuickCard');
+  const manualToggle = document.getElementById('manualEntryToggle');
+  if (!isToday) {
+    activeBanner.style.display = 'none';
+    quickCard.style.display = 'none';
+    manualToggle.style.display = 'none';
+    const mec = document.getElementById('manualEntryCard');
+    if (mec) mec.style.display = 'none';
+  } else if (activeSleep) {
+    activeBanner.style.display = 'flex';
+    quickCard.style.display = 'none';
+    manualToggle.style.display = 'block'; // still allow manual entry during active sleep
+    const label = activeSleep.type === 'nap' ? '☀ ' + t('napInProgress') : '☾ ' + t('nightInProgress');
+    document.getElementById('activeSleepLabel').textContent = label;
+    document.getElementById('activeSleepSince').textContent = t('since') + ' ' + activeSleep.startTime;
+    const startMs = new Date(activeSleep.startDate + 'T' + activeSleep.startTime + ':00').getTime();
+    const min = Math.max(0, Math.round((Date.now() - startMs) / 60000));
+    document.getElementById('activeSleepDuration').textContent = fmtDuration(min);
+  } else {
+    activeBanner.style.display = 'none';
+    quickCard.style.display = 'block';
+    manualToggle.style.display = 'block';
+  }
+
+  // Sleep stats for viewKey
+  const viewSleeps = getSleepsForDay(viewKey);
+  const totalMin = viewSleeps.reduce((s, sl) => s + sleepDurationMin(sl), 0);
+  const naps = viewSleeps.filter(s => s.type === 'nap');
+  const nights = viewSleeps.filter(s => s.type === 'night');
+  const napsMin = naps.reduce((s, sl) => s + sleepDurationMin(sl), 0);
+  const nightMin = nights.reduce((s, sl) => s + sleepDurationMin(sl), 0);
+
+  document.getElementById('sleepTodayTitle').textContent = isToday ? t('today') : formatDate(viewKey);
+  document.getElementById('sleepTotalToday').textContent = totalMin > 0 ? fmtDuration(totalMin) : '—';
+  document.getElementById('sleepTotalSub').textContent = viewSleeps.length + ' ' + (viewSleeps.length === 1 ? t('record') : t('records'));
+  document.getElementById('sleepNapsToday').textContent = naps.length > 0 ? fmtDuration(napsMin) : '—';
+  document.getElementById('sleepNapsSub').textContent = naps.length + ' ' + (naps.length === 1 ? t('nap1') : t('napsPlural'));
+
+  // Night sleep for the viewed day
+  if (nights.length > 0) {
+    document.getElementById('sleepNightToday').textContent = fmtDuration(nightMin);
+    if (nights.length === 1) {
+      document.getElementById('sleepNightSub').textContent = nights[0].startTime + ' → ' + nights[0].endTime;
+    } else {
+      document.getElementById('sleepNightSub').textContent = nights.length + ' ' + t('tracks') + ' · ' + nights[0].startTime + ' → ' + nights[nights.length - 1].endTime;
+    }
+  } else if (isToday) {
+    // Fallback only for today: most recent night sleep from any previous day
+    const lastNightSleeps = [...sleeps].filter(s => s.type === 'night').sort((a, b) => {
+      const aMs = new Date(a.startDate + 'T' + a.startTime + ':00').getTime();
+      const bMs = new Date(b.startDate + 'T' + b.startTime + ':00').getTime();
+      return bMs - aMs;
+    });
+    if (lastNightSleeps.length > 0) {
+      const last = lastNightSleeps[0];
+      const lmin = sleepDurationMin(last);
+      document.getElementById('sleepNightToday').textContent = fmtDuration(lmin);
+      document.getElementById('sleepNightSub').textContent = t('lastNight') + ' · ' + last.startTime + ' → ' + last.endTime;
+    } else {
+      document.getElementById('sleepNightToday').textContent = '—';
+      document.getElementById('sleepNightSub').textContent = t('noneRecorded');
+    }
+  } else {
+    document.getElementById('sleepNightToday').textContent = '—';
+    document.getElementById('sleepNightSub').textContent = t('noneRecorded');
+  }
+
+  // 7-day rolling average — over COMPLETE days only (never includes today, which is still in progress)
+  // When viewing today: the 7 days before today.
+  // When viewing a past day: that day plus the 6 before it (all complete).
+  const recent7Days = [];
+  const refStart = isToday ? (function() {
+    const d = new Date(today + 'T12:00:00');
+    d.setDate(d.getDate() - 1);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  })() : viewKey;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(refStart + 'T12:00:00');
+    d.setDate(d.getDate() - i);
+    recent7Days.push(d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()));
+  }
+  const totals7 = recent7Days.map(dk => getSleepsForDay(dk).reduce((s, sl) => s + sleepDurationMin(sl), 0)).filter(t => t > 0);
+  if (totals7.length > 0) {
+    document.getElementById('sleepAvg7').textContent = fmtDuration(Math.round(totals7.reduce((a, b) => a + b, 0) / totals7.length));
+  } else {
+    document.getElementById('sleepAvg7').textContent = '—';
+  }
+
+  // Real wakeups for the viewed day: number of night-sleep tracks - 1
+  // (each gap between night tracks is a wakeup)
+  const viewNights = viewSleeps.filter(s => s.type === 'night');
+  const wakeupsCount = viewNights.length > 0 ? Math.max(0, viewNights.length - 1) : 0;
+  const wakeupsEl = document.getElementById('wakeupsToday');
+  const wakeupsSubEl = document.getElementById('wakeupsTodaySub');
+  wakeupsEl.textContent = wakeupsCount;
+  if (viewNights.length === 0) {
+    wakeupsSubEl.textContent = isToday ? t('noNightYet') : t('noNightData');
+  } else if (wakeupsCount === 0) {
+    wakeupsSubEl.textContent = t('noInterruptions');
+  } else {
+    // Show the gap times between tracks (when she woke up)
+    const sortedNights = [...viewNights].sort((a, b) => {
+      const aMs = new Date(a.startDate + 'T' + a.startTime + ':00').getTime();
+      const bMs = new Date(b.startDate + 'T' + b.startTime + ':00').getTime();
+      return aMs - bMs;
+    });
+    const wakeTimes = [];
+    for (let i = 0; i < sortedNights.length - 1; i++) {
+      wakeTimes.push(sortedNights[i].endTime);
+    }
+    wakeupsSubEl.textContent = wakeTimes.join(', ');
+  }
+
+  // Night feeds for the viewed day (separate stat — closer to "nutritional events")
+  const viewFeeds = groupByLogicalDay()[viewKey] || [];
+  const nightFeedCount = getWakeUpFeeds(viewFeeds).length;
+  const nfEl = document.getElementById('nightFeedsToday');
+  const nfSubEl = document.getElementById('nightFeedsTodaySub');
+  if (nfEl) {
+    nfEl.textContent = nightFeedCount;
+    if (nightFeedCount === 0) {
+      nfSubEl.textContent = isToday ? t('noneYet') : t('none');
+    } else {
+      const times = getWakeUpFeeds(viewFeeds).map(f => f.time).join(', ');
+      nfSubEl.textContent = times;
+    }
+  }
+
+  // 7-day average wakeups (relative to viewKey): from sleep tracks
+  const completedKeys = getCompletedDayKeysAsOf(isToday ? null : viewKey);
+  // Include the viewKey itself if it's a past day with data
+  const baseKeys = isToday ? completedKeys : [...completedKeys.filter(k => k <= viewKey)];
+  const recentKeys = baseKeys.slice(-7);
+  if (recentKeys.length > 0) {
+    const wakeCounts = recentKeys.map(k => {
+      const dn = getSleepsForDay(k).filter(s => s.type === 'night');
+      return dn.length > 0 ? Math.max(0, dn.length - 1) : 0;
+    });
+    // Only average over days where we have at least one night recorded
+    const validCounts = wakeCounts.filter((_, i) => {
+      const dn = getSleepsForDay(recentKeys[i]).filter(s => s.type === 'night');
+      return dn.length > 0;
+    });
+    if (validCounts.length > 0) {
+      const avg = validCounts.reduce((a, b) => a + b, 0) / validCounts.length;
+      document.getElementById('wakeupsAvg7').textContent = avg.toFixed(1);
+    } else {
+      document.getElementById('wakeupsAvg7').textContent = '—';
+    }
+  } else {
+    document.getElementById('wakeupsAvg7').textContent = '—';
+  }
+
+  // Sleep list for the viewed day
+  const listEl = document.getElementById('sleepList');
+  if (viewSleeps.length === 0) {
+    const emptyMsg = isToday ? t('noSleepsToday') : t('noSleepsThatDay');
+    listEl.innerHTML = '<li style="text-align: center; color: var(--text-dim); padding: 20px;">' + emptyMsg + '</li>';
+  } else {
+    const sortedView = [...viewSleeps].sort((a, b) => {
+      const aMs = new Date(a.startDate + 'T' + a.startTime + ':00').getTime();
+      const bMs = new Date(b.startDate + 'T' + b.startTime + ':00').getTime();
+      return aMs - bMs;
+    });
+    listEl.innerHTML = '';
+    sortedView.forEach(sl => {
+      const min = sleepDurationMin(sl);
+      const li = document.createElement('li');
+      li.className = 'sleep-item';
+      const iconClass = sl.type === 'nap' ? 'nap' : 'night';
+      const icon = sl.type === 'nap' ? '☀' : '☾';
+      const typeLabel = sl.type === 'nap' ? t('napType') : t('nightType');
+      li.innerHTML =
+        '<span class="sleep-item-icon ' + iconClass + '">' + icon + '</span>' +
+        '<div class="sleep-item-info">' +
+          '<span class="sleep-item-time">' + sl.startTime + ' → ' + sl.endTime + '</span>' +
+          '<span class="sleep-item-type">' + typeLabel + '</span>' +
+        '</div>' +
+        '<span class="sleep-item-duration">' + fmtDuration(min) + '</span>' +
+        '<button class="sleep-item-del" data-id="' + sl.id + '" aria-label="Esborrar">×</button>';
+      listEl.appendChild(li);
+    });
+    listEl.querySelectorAll('.sleep-item-del').forEach(btn => {
+      btn.addEventListener('click', () => deleteSleep(btn.dataset.id));
+    });
+  }
+}
+
+function updateSleepDayNav(dayKey, today) {
+  const titleEl = document.getElementById('sleepDayNavTitle');
+  const subEl = document.getElementById('sleepDayNavSub');
+  const prevBtn = document.getElementById('sleepDayPrev');
+  const nextBtn = document.getElementById('sleepDayNext');
+  const calInput = document.getElementById('sleepDayCalInput');
+  const labelCalInput = document.getElementById('sleepDayNavLabelCal');
+
+  const isToday = dayKey === today;
+  if (isToday) {
+    titleEl.textContent = t('today');
+    titleEl.className = 'day-nav-title';
+    subEl.textContent = formatDate(dayKey);
+  } else {
+    const dToday = new Date(today + 'T12:00:00');
+    const dViewed = new Date(dayKey + 'T12:00:00');
+    const diffDays = Math.round((dToday - dViewed) / (1000 * 60 * 60 * 24));
+    let label = '';
+    if (diffDays === 1) label = t('yesterday');
+    else if (diffDays === 2) label = t('dayBeforeYesterday');
+    else label = (currentLang === 'en' ? diffDays + ' days ago' : 'Fa ' + diffDays + ' dies');
+    titleEl.textContent = label;
+    titleEl.className = 'day-nav-title past';
+    subEl.textContent = formatDate(dayKey);
+  }
+
+  if (calInput) { calInput.value = dayKey; calInput.max = today; }
+  if (labelCalInput) { labelCalInput.value = dayKey; labelCalInput.max = today; }
+
+  nextBtn.disabled = isToday;
+
+  // Disable prev if we'd go before earliest known data (sleep or feed)
+  const earliestSleep = sleeps.length ? sleeps.map(s => s.startDate).sort()[0] : null;
+  const allFeedKeys = Object.keys(groupByLogicalDay()).sort();
+  const earliestFeed = allFeedKeys[0];
+  let earliest = null;
+  if (earliestSleep && earliestFeed) earliest = earliestSleep < earliestFeed ? earliestSleep : earliestFeed;
+  else earliest = earliestSleep || earliestFeed;
+  prevBtn.disabled = !earliest || dayKey <= earliest;
+}
+
+// Wire up sleep handlers
+document.getElementById('startNapBtn').addEventListener('click', () => startSleep('nap'));
+document.getElementById('startNightBtn').addEventListener('click', () => startSleep('night'));
+document.getElementById('activeSleepWake').addEventListener('click', endActiveSleep);
+
+document.getElementById('manualEntryToggle').addEventListener('click', () => {
+  const card = document.getElementById('manualEntryCard');
+  if (card.style.display === 'none') {
+    card.style.display = 'block';
+    // Prefill defaults
+    const now = new Date();
+    document.getElementById('sleepDate').value = realTodayISO();
+    document.getElementById('sleepStart').value = pad(now.getHours()) + ':' + pad(now.getMinutes());
+    document.getElementById('sleepEnd').value = pad(now.getHours()) + ':' + pad(now.getMinutes());
+  } else {
+    card.style.display = 'none';
+  }
+});
+
+document.getElementById('sleepForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  try {
+    const type = document.getElementById('sleepType').value;
+    const startDate = document.getElementById('sleepDate').value;
+    const startTime = document.getElementById('sleepStart').value;
+    const endTime = document.getElementById('sleepEnd').value;
+    if (!startDate || !startTime || !endTime) {
+      showToast(t('missingData'));
+      return;
+    }
+    // Determine end date: if end time is earlier than start time, end is next day
+    let endDate = startDate;
+    if (endTime < startTime) {
+      const d = new Date(startDate + 'T12:00:00');
+      d.setDate(d.getDate() + 1);
+      endDate = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+
+    const newStartMs = new Date(startDate + 'T' + startTime + ':00').getTime();
+    const newEndMs = new Date(endDate + 'T' + endTime + ':00').getTime();
+
+    // If there's an active (running) sleep, resolve overlaps by trimming it.
+    let activeTrimmedMsg = '';
+    if (activeSleep) {
+      const activeStartMs = new Date(activeSleep.startDate + 'T' + activeSleep.startTime + ':00').getTime();
+      if (newStartMs > activeStartMs) {
+        // The manual sleep starts AFTER the active one began → the active sleep got
+        // interrupted. Close the active sleep so it ends right when the manual begins.
+        sleeps.push({
+          id: activeSleep.id,
+          type: activeSleep.type,
+          startDate: activeSleep.startDate,
+          startTime: activeSleep.startTime,
+          endDate: startDate,
+          endTime: startTime,
+        });
+        activeSleep = null;
+        activeTrimmedMsg = ' · ' + t('activeSleepClosed');
+      } else {
+        // The manual sleep starts before/at the active one → shift the active sleep's
+        // start to when the manual ends (so they don't overlap).
+        if (newEndMs > activeStartMs) {
+          activeSleep.startDate = endDate;
+          activeSleep.startTime = endTime;
+          activeTrimmedMsg = ' · ' + t('activeSleepShifted');
+        }
+      }
+    }
+
+    sleeps.push({
+      id: genSleepId(),
+      type, startDate, startTime, endDate, endTime,
+    });
+    saveSleeps();
+    showToast(t('sleepAdded') + activeTrimmedMsg);
+    document.getElementById('manualEntryCard').style.display = 'none';
+    // Jump the sleep tab to the logical day of the new sleep so the user can see it
+    const startHour = parseInt(startTime.split(':')[0], 10);
+    let logicalDay = startDate;
+    if (startHour < DAY_START_HOUR) {
+      const d = new Date(startDate + 'T12:00:00');
+      d.setDate(d.getDate() - 1);
+      logicalDay = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+    viewedSleepDay = logicalDay === todayISO() ? null : logicalDay;
+    render();
+  } catch (err) {
+    console.error(err);
+    showToast('Error: ' + err.message);
+  }
+});
+
+// Update active sleep duration every minute
+setInterval(() => {
+  if (activeSleep && document.getElementById('tab-sleep').classList.contains('active')) {
+    const startMs = new Date(activeSleep.startDate + 'T' + activeSleep.startTime + ':00').getTime();
+    const min = Math.max(0, Math.round((Date.now() - startMs) / 60000));
+    const durEl = document.getElementById('activeSleepDuration');
+    if (durEl) durEl.textContent = fmtDuration(min);
+  }
+}, 60000);
+
+// ============== Metric chart system ==============
+// Each metric knows how to compute its value for a given logical day.
+// `fmt` formats a value for display. `valForDay` returns null when there's no data.
+const METRICS = {
+  // ---- Feeds ----
+  total: {
+    name: () => L('Volum diari', 'Daily volume'), unit: 'ml',
+    valForDay: (k) => { const s = dayStats(k); return s.count > 0 ? s.total : null; },
+    fmt: (v) => Math.round(v) + ' ml',
+  },
+  count: {
+    name: () => L('Preses / dia', 'Feeds / day'), unit: '',
+    valForDay: (k) => { const s = dayStats(k); return s.count > 0 ? s.count : null; },
+    fmt: (v) => v.toFixed(1),
+  },
+  avgFeed: {
+    name: () => L('Mitjana per presa', 'Avg per feed'), unit: 'ml',
+    valForDay: (k) => { const s = dayStats(k); return s.count > 0 ? s.total / s.count : null; },
+    fmt: (v) => Math.round(v) + ' ml',
+  },
+  nightVol: {
+    name: () => L('Volum nocturn', 'Night volume'), unit: 'ml',
+    valForDay: (k) => { const s = dayStats(k); return s.count > 0 ? s.nightMl : null; },
+    fmt: (v) => Math.round(v) + ' ml',
+  },
+  preBed: {
+    name: () => L('Volum a anar a dormir', 'Volume by bedtime'), unit: 'ml',
+    valForDay: (k) => { const s = dayStats(k); return s.count > 0 ? s.preBed : null; },
+    fmt: (v) => Math.round(v) + ' ml',
+  },
+  interval: {
+    name: () => L('Interval entre preses', 'Interval between feeds'), unit: 'h',
+    valForDay: (k) => {
+      const dayFeeds = groupByLogicalDay()[k] || [];
+      if (dayFeeds.length < 2) return null;
+      const intervals = [];
+      for (let i = 1; i < dayFeeds.length; i++) {
+        let prevMin = timeToMinutes(dayFeeds[i - 1].time);
+        let curMin = timeToMinutes(dayFeeds[i].time);
+        if (isBeforeDayStart(dayFeeds[i - 1].time)) prevMin += 24 * 60;
+        if (isBeforeDayStart(dayFeeds[i].time)) curMin += 24 * 60;
+        const d = (curMin - prevMin) / 60;
+        if (d > 0) intervals.push(d);
+      }
+      return intervals.length ? intervals.reduce((a, b) => a + b, 0) / intervals.length : null;
+    },
+    fmt: (v) => { const h = Math.floor(v); const m = Math.round((v - h) * 60); return h + 'h' + (m < 10 ? '0' : '') + m; },
+  },
+  cereals: {
+    name: () => L('Cereals (tancament)', 'Cereal (closing)'), unit: '',
+    valForDay: (k) => {
+      const c = getClosingFeed(groupByLogicalDay()[k] || []);
+      return c ? (c.cereals || 0) : null;
+    },
+    fmt: (v) => v.toFixed(1) + L(' cull.', ' sp'),
+  },
+  // ---- Sleep ----
+  sleepTotal: {
+    name: () => L('Son total', 'Total sleep'), unit: 'min',
+    valForDay: (k) => { const s = sleepDayStats(k); return s.total > 0 ? s.total : null; },
+    fmt: (v) => fmtDuration(Math.round(v)),
+  },
+  nightSleep: {
+    name: () => L('Son nocturn', 'Night sleep'), unit: 'min',
+    valForDay: (k) => { const s = sleepDayStats(k); return s.nightMin > 0 ? s.nightMin : null; },
+    fmt: (v) => fmtDuration(Math.round(v)),
+  },
+  napTotal: {
+    name: () => L('Son de sietas', 'Nap sleep'), unit: 'min',
+    valForDay: (k) => { const s = sleepDayStats(k); return s.napMin > 0 ? s.napMin : null; },
+    fmt: (v) => fmtDuration(Math.round(v)),
+  },
+  napCount: {
+    name: () => L('Nombre de sietas', 'Number of naps'), unit: '',
+    valForDay: (k) => { const s = sleepDayStats(k); return s.napCount > 0 ? s.napCount : null; },
+    fmt: (v) => v.toFixed(1),
+  },
+  wakeups: {
+    name: () => L('Despertars nit', 'Night wakeups'), unit: '',
+    valForDay: (k) => {
+      const dn = getSleepsForDay(k).filter(s => s.type === 'night');
+      return dn.length > 0 ? Math.max(0, dn.length - 1) : null;
+    },
+    fmt: (v) => v.toFixed(1),
+  },
+  nightFeeds: {
+    name: () => L('Preses nocturnes', 'Night feeds'), unit: '',
+    valForDay: (k) => {
+      const s = dayStats(k);
+      if (s.count === 0) return null;
+      return getWakeUpFeeds(groupByLogicalDay()[k] || []).length;
+    },
+    fmt: (v) => v.toFixed(1),
+  },
+  fasting: {
+    name: () => L('Dejuni nocturn', 'Night fasting'), unit: 'h',
+    valForDay: (k) => {
+      const dayFeeds = groupByLogicalDay()[k] || [];
+      const closing = getClosingFeed(dayFeeds);
+      const wake = getWakeUpFeed(dayFeeds);
+      if (!closing || !wake) return null;
+      let cm = timeToMinutes(closing.time);
+      let wm = timeToMinutes(wake.time);
+      if (isBeforeDayStart(closing.time)) cm += 24 * 60;
+      if (isBeforeDayStart(wake.time)) wm += 24 * 60;
+      return wm > cm ? (wm - cm) / 60 : null;
+    },
+    fmt: (v) => { const h = Math.floor(v); const m = Math.round((v - h) * 60); return h + 'h' + (m < 10 ? '0' : '') + m; },
+  },
+};
+
+// Which metric chart is currently open (null = none)
+let openChartMetric = null;
+let chartPeriod = 30; // days shown in the metric chart: 7/14/30/9999(all)
+
+// Build the daily series for a metric: array of {day, value} for days that have data,
+// limited to the last `days` logical days (or all if days is huge).
+function buildMetricSeries(metricKey, days) {
+  const metric = METRICS[metricKey];
+  if (!metric) return [];
+  // Use all logical days that exist (feeds or sleeps), sorted
+  const feedDays = Object.keys(groupByLogicalDay());
+  const sleepDays = getSleepDays();
+  const allDays = Array.from(new Set([...feedDays, ...sleepDays])).sort();
+  const today = todayISO();
+  // Exclude today (incomplete) for fair comparison
+  const usable = allDays.filter(d => d < today);
+  const series = [];
+  usable.forEach(d => {
+    const v = metric.valForDay(d);
+    if (v !== null && v !== undefined && !isNaN(v)) series.push({ day: d, value: v });
+  });
+  // Limit to last `days`
+  return days >= 9999 ? series : series.slice(-days);
+}
+
+// Simple moving-average trend line
+function movingAverage(values, window) {
+  const out = [];
+  for (let i = 0; i < values.length; i++) {
+    const start = Math.max(0, i - window + 1);
+    const slice = values.slice(start, i + 1);
+    out.push(slice.reduce((a, b) => a + b, 0) / slice.length);
+  }
+  return out;
+}
+
+// Render an SVG line chart (daily points + trend line) into a container element
+function renderMetricChart(containerEl, metricKey) {
+  const metric = METRICS[metricKey];
+  const series = buildMetricSeries(metricKey, chartPeriod);
+
+  // Period selector
+  const periods = [
+    { v: 7, label: L('Setm.', 'Week') },
+    { v: 14, label: L('Quinz.', 'Fortn.') },
+    { v: 30, label: L('Mes', 'Month') },
+    { v: 9999, label: L('Tot', 'All') },
+  ];
+  let selectorHtml = '<div class="chart-period-selector">';
+  periods.forEach(p => {
+    selectorHtml += '<button class="chart-period-btn ' + (chartPeriod === p.v ? 'active' : '') + '" data-period="' + p.v + '">' + p.label + '</button>';
+  });
+  selectorHtml += '</div>';
+
+  if (series.length < 2) {
+    containerEl.innerHTML = selectorHtml + '<div class="chart-empty">' + L('Calen almenys 2 dies amb dades en aquest període.', 'Need at least 2 days of data in this period.') + '</div>';
+    wireChartPeriodButtons(containerEl, metricKey);
+    return;
+  }
+
+  const values = series.map(s => s.value);
+  const trend = movingAverage(values, Math.min(7, Math.max(2, Math.floor(series.length / 4))));
+  const minV = Math.min(...values);
+  const maxV = Math.max(...values);
+  const range = maxV - minV || 1;
+  // Pad range a bit
+  const padTop = range * 0.15, padBot = range * 0.15;
+  const yMin = minV - padBot, yMax = maxV + padTop;
+  const yRange = yMax - yMin || 1;
+
+  const W = 320, H = 150, padL = 8, padR = 8, padTopPx = 12, padBotPx = 22;
+  const plotW = W - padL - padR, plotH = H - padTopPx - padBotPx;
+
+  const x = (i) => padL + (series.length === 1 ? plotW / 2 : (i / (series.length - 1)) * plotW);
+  const y = (v) => padTopPx + (1 - (v - yMin) / yRange) * plotH;
+
+  // Trend path
+  let trendPath = '';
+  trend.forEach((v, i) => { trendPath += (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(v).toFixed(1) + ' '; });
+
+  // Daily points
+  let points = '';
+  series.forEach((s, i) => {
+    points += '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(s.value).toFixed(1) + '" r="2.5" class="chart-dot"></circle>';
+  });
+
+  // Light connecting line for daily values
+  let dailyPath = '';
+  series.forEach((s, i) => { dailyPath += (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(s.value).toFixed(1) + ' '; });
+
+  // Y-axis min/max labels + X-axis first/last date
+  const firstDate = formatDate(series[0].day);
+  const lastDate = formatDate(series[series.length - 1].day);
+
+  // Compute average of the window for a reference line
+  const avg = values.reduce((a, b) => a + b, 0) / values.length;
+  const avgY = y(avg);
+
+  // Latest vs first delta (direction only, no value judgement since "more" isn't always better)
+  const firstVal = values[0], lastVal = values[values.length - 1];
+  const delta = lastVal - firstVal;
+  const deltaSign = delta >= 0 ? '+' : '−';
+  const deltaStr = deltaSign + metric.fmt(Math.abs(delta));
+  const deltaClass = 'neutral';
+
+  const svg =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" class="metric-chart-svg" preserveAspectRatio="xMidYMid meet">' +
+      // avg reference line
+      '<line x1="' + padL + '" y1="' + avgY.toFixed(1) + '" x2="' + (W - padR) + '" y2="' + avgY.toFixed(1) + '" class="chart-avg-line"></line>' +
+      '<path d="' + dailyPath + '" class="chart-daily-line"></path>' +
+      '<path d="' + trendPath + '" class="chart-trend-line"></path>' +
+      points +
+    '</svg>';
+
+  const legend =
+    '<div class="chart-legend">' +
+      '<span class="chart-legend-item"><span class="chart-legend-dot daily"></span>' + L('valor diari', 'daily value') + '</span>' +
+      '<span class="chart-legend-item"><span class="chart-legend-dot trend"></span>' + L('tendència', 'trend') + '</span>' +
+      '<span class="chart-legend-item"><span class="chart-legend-dot avg"></span>' + L('mitjana', 'average') + ' ' + metric.fmt(avg) + '</span>' +
+    '</div>';
+
+  const stats =
+    '<div class="chart-stats">' +
+      '<div class="chart-stat"><div class="chart-stat-label">' + L('mín', 'min') + '</div><div class="chart-stat-val">' + metric.fmt(minV) + '</div></div>' +
+      '<div class="chart-stat"><div class="chart-stat-label">' + L('màx', 'max') + '</div><div class="chart-stat-val">' + metric.fmt(maxV) + '</div></div>' +
+      '<div class="chart-stat"><div class="chart-stat-label">' + L('canvi', 'change') + '</div><div class="chart-stat-val ' + deltaClass + '">' + deltaStr + '</div></div>' +
+      '<div class="chart-stat"><div class="chart-stat-label">' + L('dies', 'days') + '</div><div class="chart-stat-val">' + series.length + '</div></div>' +
+    '</div>';
+
+  const axisLabels =
+    '<div class="chart-axis-dates"><span>' + firstDate + '</span><span>' + lastDate + '</span></div>';
+
+  containerEl.innerHTML = selectorHtml + svg + axisLabels + legend + stats;
+  wireChartPeriodButtons(containerEl, metricKey);
+}
+
+function wireChartPeriodButtons(containerEl, metricKey) {
+  containerEl.querySelectorAll('.chart-period-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      chartPeriod = parseInt(b.dataset.period, 10);
+      renderMetricChart(containerEl, metricKey);
+    });
+  });
+}
+
+// Toggle a metric chart open/closed under a stat card
+function toggleMetricChart(statEl, metricKey) {
+  // If clicking the already-open one, close it
+  const existing = statEl.querySelector('.metric-chart');
+  if (existing) {
+    existing.remove();
+    statEl.classList.remove('chart-open');
+    openChartMetric = null;
+    return;
+  }
+  // Close any other open chart
+  document.querySelectorAll('.metric-chart').forEach(c => c.remove());
+  document.querySelectorAll('.stat.chart-open').forEach(s => s.classList.remove('chart-open'));
+
+  const chartDiv = document.createElement('div');
+  chartDiv.className = 'metric-chart';
+  statEl.appendChild(chartDiv);
+  statEl.classList.add('chart-open');
+  openChartMetric = metricKey;
+  renderMetricChart(chartDiv, metricKey);
+}
+
+// Attach click handlers to all stat cards that have a data-metric attribute
+function wireMetricCards() {
+  document.querySelectorAll('.stat[data-metric]').forEach(statEl => {
+    if (statEl._metricWired) return;
+    statEl._metricWired = true;
+    statEl.classList.add('stat-clickable');
+    statEl.addEventListener('click', (e) => {
+      // Don't trigger if clicking inside an already-open chart
+      if (e.target.closest('.metric-chart')) return;
+      toggleMetricChart(statEl, statEl.dataset.metric);
+    });
+  });
+}
+
+// Language toggle buttons
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+// ============== Init ==============
+loadFeeds();
+loadSleeps();
+initForm();
+applyStaticTranslations();
+render();
+wireMetricCards();
+</script>
+</body>
+</html>
